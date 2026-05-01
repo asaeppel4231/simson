@@ -4,9 +4,11 @@
 #include <QDialog>
 #include <QFileDialog>
 #include <QMessageBox>
+
 #include "Klassen/einstellung.h"
 
-namespace Ui {
+namespace Ui
+{
 class Dialog_Einstellung_pfade;
 }
 
@@ -14,17 +16,17 @@ class Dialog_Einstellung_pfade : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit Dialog_Einstellung_pfade(QWidget *parent = nullptr);
+  public:
+    explicit Dialog_Einstellung_pfade(QWidget* parent = nullptr);
     ~Dialog_Einstellung_pfade();
 
-public slots:
+  public slots:
     void slot_einstellungen(einstellung e);
 
-signals:
+  signals:
     void send_einstellungen(einstellung e);
 
-private slots:
+  private slots:
     void on_pushButton_abbrechen_clicked();
     void on_pushButton_ok_clicked();
     void on_pushButton_quelle_clicked();
@@ -34,8 +36,8 @@ private slots:
     void on_lineEdit_ziel_server_editingFinished();
     void on_lineEdit_ziel_lokal_editingFinished();
 
-private:
-    Ui::Dialog_Einstellung_pfade *ui;
+  private:
+    Ui::Dialog_Einstellung_pfade* ui;
     einstellung Einstellung;
 };
 

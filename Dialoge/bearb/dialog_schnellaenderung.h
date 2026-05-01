@@ -3,12 +3,14 @@
 
 #include <QDialog>
 #include <QMessageBox>
-#include "Klassen/text_zw.h"
-#include "Funktionen/umwandeln.h"
+
 #include "Funktionen/text.h"
+#include "Funktionen/umwandeln.h"
+#include "Klassen/text_zw.h"
 #include "Klassen/wst/werkstueck.h"
 
-namespace Ui {
+namespace Ui
+{
 class Dialog_schnellaenderung;
 }
 
@@ -16,27 +18,26 @@ class Dialog_schnellaenderung : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit Dialog_schnellaenderung(QWidget *parent = NULL);
+  public:
+    explicit Dialog_schnellaenderung(QWidget* parent = NULL);
     ~Dialog_schnellaenderung();
 
-private slots:
+  private slots:
     void on_comboBox_dlg_currentIndexChanged(int index);
     void on_comboBox_param_currentIndexChanged();
     void on_pushButton_werte_aendern_clicked();
     void on_pushButton_schliessen_clicked();
     void on_comboBox_alt_currentIndexChanged(int index);
 
-public slots:
-    void set_Data(werkstueck *w, uint start, uint menge);
+  public slots:
+    void set_Data(werkstueck* w, uint start, uint menge);
 
-signals:
+  signals:
     void werte_wurden_angepasst();
 
-
-private:
-    Ui::Dialog_schnellaenderung *ui;
-    werkstueck *Wst;
+  private:
+    Ui::Dialog_schnellaenderung* ui;
+    werkstueck* Wst;
     uint Startzeile;
     uint Menge;
     text_zw Dialoge;

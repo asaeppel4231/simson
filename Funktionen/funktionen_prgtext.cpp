@@ -6,19 +6,24 @@ QString bezug(QString b)
     if(b == WST_BEZUG_OBSEI)
     {
         msg += "ob";
-    }else if(b == WST_BEZUG_UNSEI)
+    }
+    else if(b == WST_BEZUG_UNSEI)
     {
         msg += "un";
-    }else if(b == WST_BEZUG_LI)
+    }
+    else if(b == WST_BEZUG_LI)
     {
         msg += "li";
-    }else if(b == WST_BEZUG_RE)
+    }
+    else if(b == WST_BEZUG_RE)
     {
         msg += "re";
-    }else if(b == WST_BEZUG_VO)
+    }
+    else if(b == WST_BEZUG_VO)
     {
         msg += "vo";
-    }else if(b == WST_BEZUG_HI)
+    }
+    else if(b == WST_BEZUG_HI)
     {
         msg += "hi";
     }
@@ -220,11 +225,11 @@ QString fbogen_zu_prgzei(QString text)
     if(fb.bog_ptr()->uzs())
     {
         msg += "ja";
-    }else
+    }
+    else
     {
         msg += "nein";
     }
-
 
     msg += "\tAFB: ";
     msg += fb.afb();
@@ -235,8 +240,8 @@ QString kom_zu_prgzei(QString text)
     QString msg = "(";
     kommentar_nc ko(text);
     QString kommentar = ko.kom();
-    kommentar.replace("(","[");
-    kommentar.replace(")","]");
+    kommentar.replace("(", "[");
+    kommentar.replace(")", "]");
     msg += kommentar;
     msg += ")";
     msg += "\tAFB: ";
@@ -265,6 +270,3 @@ QString gezupu_zu_prgzei(QString text)
     msg += gzp.afb();
     return msg;
 }
-
-
-

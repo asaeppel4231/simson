@@ -1,11 +1,13 @@
 #ifndef DIALOG_BEARB_PKOPF_H
 #define DIALOG_BEARB_PKOPF_H
 
-#include "Klassen/wst/werkstueck.h"
-#include "Klassen/wenndannsonst.h"
 #include <QDialog>
 
-namespace Ui {
+#include "Klassen/wenndannsonst.h"
+#include "Klassen/wst/werkstueck.h"
+
+namespace Ui
+{
 class Dialog_bearb_pkopf;
 }
 
@@ -13,18 +15,18 @@ class Dialog_bearb_pkopf : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit Dialog_bearb_pkopf(QWidget *parent = nullptr);
+  public:
+    explicit Dialog_bearb_pkopf(QWidget* parent = nullptr);
     ~Dialog_bearb_pkopf();
-    void set_data(werkstueck *w);
+    void set_data(werkstueck* w);
 
-private slots:
+  private slots:
     void on_pushButton_ok_clicked();
     void on_pushButton_abbrechen_clicked();
 
-private:
-    Ui::Dialog_bearb_pkopf *ui;
-    werkstueck *Wst;
+  private:
+    Ui::Dialog_bearb_pkopf* ui;
+    werkstueck* Wst;
 };
 
 #endif // DIALOG_BEARB_PKOPF_H

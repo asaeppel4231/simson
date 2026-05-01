@@ -1,9 +1,8 @@
 #include "dialog_einstellung_dxf_klassen.h"
+
 #include "ui_dialog_einstellung_dxf_klassen.h"
 
-Dialog_einstellung_dxf_klassen::Dialog_einstellung_dxf_klassen(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_einstellung_dxf_klassen)
+Dialog_einstellung_dxf_klassen::Dialog_einstellung_dxf_klassen(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_einstellung_dxf_klassen)
 {
     ui->setupUi(this);
 }
@@ -60,7 +59,7 @@ einstellung_dxf_klassen Dialog_einstellung_dxf_klassen::einstellung()
     return Einstellung_klassen;
 }
 
-void Dialog_einstellung_dxf_klassen::on_lineEdit_wst_textChanged(const QString &arg1)
+void Dialog_einstellung_dxf_klassen::on_lineEdit_wst_textChanged(const QString& arg1)
 {
     QString beispiel = arg1;
     beispiel += "_19";
@@ -68,7 +67,7 @@ void Dialog_einstellung_dxf_klassen::on_lineEdit_wst_textChanged(const QString &
     beispiel += "6";
     ui->lineEdit_wst_beispiel->setText(beispiel);
 }
-void Dialog_einstellung_dxf_klassen::on_lineEdit_bohr_vert_textChanged(const QString &arg1)
+void Dialog_einstellung_dxf_klassen::on_lineEdit_bohr_vert_textChanged(const QString& arg1)
 {
     QString beispiel = arg1;
     beispiel += "_14";
@@ -76,7 +75,7 @@ void Dialog_einstellung_dxf_klassen::on_lineEdit_bohr_vert_textChanged(const QSt
     beispiel += "2";
     ui->lineEdit_bohr_vert_beispiel->setText(beispiel);
 }
-void Dialog_einstellung_dxf_klassen::on_lineEdit_bohr_hori_textChanged(const QString &arg1)
+void Dialog_einstellung_dxf_klassen::on_lineEdit_bohr_hori_textChanged(const QString& arg1)
 {
     QString beispiel = arg1;
     beispiel += "_9";
@@ -84,7 +83,7 @@ void Dialog_einstellung_dxf_klassen::on_lineEdit_bohr_hori_textChanged(const QSt
     beispiel += "5";
     ui->lineEdit_bohr_hori_beispiel->setText(beispiel);
 }
-void Dialog_einstellung_dxf_klassen::on_lineEdit_nut_vert_textChanged(const QString &arg1)
+void Dialog_einstellung_dxf_klassen::on_lineEdit_nut_vert_textChanged(const QString& arg1)
 {
     QString beispiel = arg1;
     beispiel += "_8";
@@ -92,23 +91,24 @@ void Dialog_einstellung_dxf_klassen::on_lineEdit_nut_vert_textChanged(const QStr
     beispiel += "5";
     ui->lineEdit_nut_vert_beispiel->setText(beispiel);
 }
-void Dialog_einstellung_dxf_klassen::on_lineEdit_fraes_vert_textChanged(const QString &arg1)
+void Dialog_einstellung_dxf_klassen::on_lineEdit_fraes_vert_textChanged(const QString& arg1)
 {
-    //Beispiel 1:
+    // Beispiel 1:
     QString beispiel = arg1;
     beispiel += "_-2";
     beispiel += Einstellung_allgem.kenWKZnr();
     beispiel += "601";
     beispiel += Einstellung_allgem.kenRadKorLi();
     ui->lineEdit_fraes_vert_beispiel1->setText(beispiel);
-    //Beispiel 2:
+    // Beispiel 2:
     beispiel = arg1;
     if(Einstellung_allgem.bezugTiFkonObSei())
     {
         beispiel += "_5";
         beispiel += Einstellung_allgem.dezitren();
         beispiel += "0";
-    }else
+    }
+    else
     {
         beispiel += "_14";
         beispiel += Einstellung_allgem.dezitren();
@@ -119,43 +119,42 @@ void Dialog_einstellung_dxf_klassen::on_lineEdit_fraes_vert_textChanged(const QS
     beispiel += Einstellung_allgem.kenRadKorLi();
     ui->lineEdit_fraes_vert_beispiel2->setText(beispiel);
 }
-void Dialog_einstellung_dxf_klassen::on_lineEdit_kta_textChanged(const QString &arg1)
+void Dialog_einstellung_dxf_klassen::on_lineEdit_kta_textChanged(const QString& arg1)
 {
-    //Beispiel 1:
+    // Beispiel 1:
     QString beispiel = arg1;
     beispiel += "_14";
     beispiel += Einstellung_allgem.dezitren();
     beispiel += "2";
     ui->lineEdit_kta_beispiel->setText(beispiel);
-    //Beispiel 2:
+    // Beispiel 2:
     beispiel += Einstellung_allgem.kenWKZnr();
     beispiel += "601";
     ui->lineEdit_kta_beispiel2->setText(beispiel);
 }
-void Dialog_einstellung_dxf_klassen::on_lineEdit_rta_textChanged(const QString &arg1)
+void Dialog_einstellung_dxf_klassen::on_lineEdit_rta_textChanged(const QString& arg1)
 {
-    //Beispiel 1:
+    // Beispiel 1:
     QString beispiel = arg1;
     beispiel += "_14";
     beispiel += Einstellung_allgem.dezitren();
     beispiel += "2";
     ui->lineEdit_rta_beispiel->setText(beispiel);
-    //Beispiel 2:
+    // Beispiel 2:
     beispiel += Einstellung_allgem.kenWKZnr();
     beispiel += "601";
     ui->lineEdit_rta_beispiel2->setText(beispiel);
 }
-void Dialog_einstellung_dxf_klassen::on_lineEdit_zapfen_textChanged(const QString &arg1)
+void Dialog_einstellung_dxf_klassen::on_lineEdit_zapfen_textChanged(const QString& arg1)
 {
-    //Beispiel 1:
+    // Beispiel 1:
     QString beispiel = arg1;
     beispiel += "_14";
     beispiel += Einstellung_allgem.dezitren();
     beispiel += "2";
     ui->lineEdit_zapfen_beispiel->setText(beispiel);
-    //Beispiel 2:
+    // Beispiel 2:
     beispiel += Einstellung_allgem.kenWKZnr();
     beispiel += "601";
     ui->lineEdit_zapfen_beispiel2->setText(beispiel);
 }
-

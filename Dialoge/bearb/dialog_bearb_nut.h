@@ -1,12 +1,14 @@
 #ifndef DIALOG_BEARB_NUT_H
 #define DIALOG_BEARB_NUT_H
 
-#include "Klassen/wst/nut.h"
-#include "Klassen/formel.h"
-#include "Klassen/wst/werkstueck.h"
 #include <QDialog>
 
-namespace Ui {
+#include "Klassen/formel.h"
+#include "Klassen/wst/nut.h"
+#include "Klassen/wst/werkstueck.h"
+
+namespace Ui
+{
 class Dialog_bearb_nut;
 }
 
@@ -14,12 +16,12 @@ class Dialog_bearb_nut : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit Dialog_bearb_nut(QWidget *parent = nullptr);
+  public:
+    explicit Dialog_bearb_nut(QWidget* parent = nullptr);
     ~Dialog_bearb_nut();
-    void set_data(QString d, werkstueck *w);
+    void set_data(QString d, werkstueck* w);
 
-private slots:
+  private slots:
     void on_btn_ok_clicked();
     void on_btn_abbrechen_clicked();
     void on_pushButton_ob_clicked();
@@ -28,12 +30,12 @@ private slots:
     void on_pushButton_vo_clicked();
     void on_pushButton_hi_clicked();
 
-signals:
+  signals:
     void signal_nut(nut nu);
 
-private:
-    Ui::Dialog_bearb_nut *ui;
-    werkstueck *Wst;
+  private:
+    Ui::Dialog_bearb_nut* ui;
+    werkstueck* Wst;
     QString var_zu_wert(QString term);
 };
 

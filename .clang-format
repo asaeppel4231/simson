@@ -1,0 +1,50 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# Qt-spezifische Einstellungen
+PointerAlignment: Left
+SpaceBeforeParens: ControlStatements
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+
+# Lange Funktionsaufrufe (z. B. connect()) schön umbrechen
+BinPackArguments: false
+BinPackParameters: false
+AlignAfterOpenBracket: Align
+BreakBeforeBinaryOperators: None
+BreakBeforeBraces: Allman
+BreakConstructorInitializers: AfterColon
+
+# Backslashes in connect()-Makros nicht zerstören
+MacroBlockBegin: "^\\s*Q_OBJECT"
+MacroBlockEnd: "^\\s*Q_SIGNALS"
+
+# Qt SIGNAL/SLOT Makros nicht anfassen
+StatementMacros:
+  - SIGNAL
+  - SLOT
+  - Q_OBJECT
+  - Q_SIGNALS
+  - Q_SLOTS
+
+SpaceBeforeParens: Never
+AlignConsecutiveMacros: true
+
+# Includes sortieren, aber Qt oben lassen
+IncludeBlocks: Regroup
+SortIncludes: true
+IncludeCategories:
+  - Regex: '^<Qt.*'
+    Priority: 1
+  - Regex: '^<.*'
+    Priority: 2
+  - Regex: '.*'
+    Priority: 3
+
+# Zeilenlänge
+ColumnLimit: 150
+ContinuationIndentWidth: 4
+PenaltyBreakBeforeFirstCallParameter: 100

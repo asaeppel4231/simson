@@ -1,19 +1,18 @@
 #include "dialog_bearb_bohrung.h"
+
 #include "ui_dialog_bearb_bohrung.h"
 
-Dialog_bearb_bohrung::Dialog_bearb_bohrung(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_bearb_bohrung)
+Dialog_bearb_bohrung::Dialog_bearb_bohrung(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_bearb_bohrung)
 {
     ui->setupUi(this);
     Wst = nullptr;
     this->setWindowTitle("Bohrung/Kreistasche");
-    ui->comboBox_bezug->addItem("Oberseite");   //0
-    ui->comboBox_bezug->addItem("Unterseite");  //1
-    ui->comboBox_bezug->addItem("Links");       //2
-    ui->comboBox_bezug->addItem("Rechts");      //3
-    ui->comboBox_bezug->addItem("Vorne");       //4
-    ui->comboBox_bezug->addItem("Hinten");      //5
+    ui->comboBox_bezug->addItem("Oberseite");  // 0
+    ui->comboBox_bezug->addItem("Unterseite"); // 1
+    ui->comboBox_bezug->addItem("Links");      // 2
+    ui->comboBox_bezug->addItem("Rechts");     // 3
+    ui->comboBox_bezug->addItem("Vorne");      // 4
+    ui->comboBox_bezug->addItem("Hinten");     // 5
     ui->pushButton_invert->setText("HBE\ninvertieren");
     connect(&dlg_wkzwahl, SIGNAL(send_wkz(QString)), this, SLOT(get_wkz(QString)));
     ui->btn_ok->setFocus();
@@ -24,7 +23,7 @@ Dialog_bearb_bohrung::~Dialog_bearb_bohrung()
     delete ui;
 }
 
-void Dialog_bearb_bohrung::set_data(QString d, werkstueck *w, text_zw wkzmag)
+void Dialog_bearb_bohrung::set_data(QString d, werkstueck* w, text_zw wkzmag)
 {
     Wst = w;
     Wkzmag = wkzmag;
@@ -37,23 +36,28 @@ void Dialog_bearb_bohrung::set_data(QString d, werkstueck *w, text_zw wkzmag)
     ui->lineEdit_z->setText(bo.z_qstring());
     ui->lineEdit_zust->setText(bo.zustellmass_qstring());
     //---------
-    //Bezug:
+    // Bezug:
     if(bo.bezug() == WST_BEZUG_OBSEI)
     {
         ui->comboBox_bezug->setCurrentIndex(0);
-    }else if(bo.bezug() == WST_BEZUG_UNSEI)
+    }
+    else if(bo.bezug() == WST_BEZUG_UNSEI)
     {
         ui->comboBox_bezug->setCurrentIndex(1);
-    }else if(bo.bezug() == WST_BEZUG_LI)
+    }
+    else if(bo.bezug() == WST_BEZUG_LI)
     {
         ui->comboBox_bezug->setCurrentIndex(2);
-    }else if(bo.bezug() == WST_BEZUG_RE)
+    }
+    else if(bo.bezug() == WST_BEZUG_RE)
     {
         ui->comboBox_bezug->setCurrentIndex(3);
-    }else if(bo.bezug() == WST_BEZUG_VO)
+    }
+    else if(bo.bezug() == WST_BEZUG_VO)
     {
         ui->comboBox_bezug->setCurrentIndex(4);
-    }else if(bo.bezug() == WST_BEZUG_HI)
+    }
+    else if(bo.bezug() == WST_BEZUG_HI)
     {
         ui->comboBox_bezug->setCurrentIndex(5);
     }
@@ -72,7 +76,8 @@ QString Dialog_bearb_bohrung::var_zu_wert(QString term)
         term.replace("B", Wst->breite_qstring());
         term.replace("D", Wst->dicke_qstring());
         term = berechnen(term);
-    }else
+    }
+    else
     {
         berechnen(term);
     }
@@ -92,19 +97,24 @@ void Dialog_bearb_bohrung::on_btn_ok_clicked()
     if(bezug == "Oberseite")
     {
         bo.set_bezug(WST_BEZUG_OBSEI);
-    }else if(bezug == "Unterseite")
+    }
+    else if(bezug == "Unterseite")
     {
         bo.set_bezug(WST_BEZUG_UNSEI);
-    }else if(bezug == "Links")
+    }
+    else if(bezug == "Links")
     {
         bo.set_bezug(WST_BEZUG_LI);
-    }else if(bezug == "Rechts")
+    }
+    else if(bezug == "Rechts")
     {
         bo.set_bezug(WST_BEZUG_RE);
-    }else if(bezug == "Vorne")
+    }
+    else if(bezug == "Vorne")
     {
         bo.set_bezug(WST_BEZUG_VO);
-    }else if(bezug == "Hinten")
+    }
+    else if(bezug == "Hinten")
     {
         bo.set_bezug(WST_BEZUG_HI);
     }
@@ -125,7 +135,8 @@ void Dialog_bearb_bohrung::on_btn_ok_clicked()
         mb.setText(msg);
         mb.setWindowTitle("Angaben ungültig!");
         mb.exec();
-    }else if(bo.tiefe() <= 0)
+    }
+    else if(bo.tiefe() <= 0)
     {
         QString msg;
         msg = "Die Bohrtiefe muss größer als 0 sein!";
@@ -133,7 +144,8 @@ void Dialog_bearb_bohrung::on_btn_ok_clicked()
         mb.setText(msg);
         mb.setWindowTitle("Angaben ungültig!");
         mb.exec();
-    }else if(bo.zustellmass() <= 0)
+    }
+    else if(bo.zustellmass() <= 0)
     {
         QString msg;
         msg = "Das Zustellmaß muss größer als 0 sein!";
@@ -141,7 +153,8 @@ void Dialog_bearb_bohrung::on_btn_ok_clicked()
         mb.setText(msg);
         mb.setWindowTitle("Angaben ungültig!");
         mb.exec();
-    }else
+    }
+    else
     {
         emit signal_bo(bo);
         this->close();
@@ -162,19 +175,22 @@ void Dialog_bearb_bohrung::on_pushButton_invert_clicked()
         double x = var_zu_wert(ui->lineEdit_x->text()).toDouble();
         x = Wst->laenge() - x;
         ui->lineEdit_x->setText(double_to_qstring(x));
-    }else if(bezug == Bezug_re)
+    }
+    else if(bezug == Bezug_re)
     {
         ui->comboBox_bezug->setCurrentIndex(Bezug_li);
         double x = var_zu_wert(ui->lineEdit_x->text()).toDouble();
         x = Wst->laenge() - x;
         ui->lineEdit_x->setText(double_to_qstring(x));
-    }else if(bezug == Bezug_vo)
+    }
+    else if(bezug == Bezug_vo)
     {
         ui->comboBox_bezug->setCurrentIndex(Bezug_hi);
         double y = var_zu_wert(ui->lineEdit_y->text()).toDouble();
         y = Wst->breite() - y;
         ui->lineEdit_y->setText(double_to_qstring(y));
-    }else if(bezug == Bezug_hi)
+    }
+    else if(bezug == Bezug_hi)
     {
         ui->comboBox_bezug->setCurrentIndex(Bezug_vo);
         double y = var_zu_wert(ui->lineEdit_y->text()).toDouble();
@@ -196,4 +212,3 @@ void Dialog_bearb_bohrung::get_wkz(QString wkz)
 {
     ui->lineEdit_wkz->setText(wkz);
 }
-

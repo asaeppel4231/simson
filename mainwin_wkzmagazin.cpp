@@ -1,14 +1,13 @@
 #include "mainwin_wkzmagazin.h"
+
 #include "ui_mainwin_wkzmagazin.h"
 
-mainwin_wkzmagazin::mainwin_wkzmagazin(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::mainwin_wkzmagazin)
+mainwin_wkzmagazin::mainwin_wkzmagazin(QWidget* parent) : QMainWindow(parent), ui(new Ui::mainwin_wkzmagazin)
 {
     ui->setupUi(this);
-    connect(&dlg_fraeser, SIGNAL(Data(text_zw,bool)),this, SLOT(set_Data(text_zw,bool)));
-    connect(&dlg_bohrer, SIGNAL(Data(text_zw,bool)),this, SLOT(set_Data(text_zw,bool)));
-    connect(&dlg_saege, SIGNAL(Data(text_zw,bool)),this, SLOT(set_Data(text_zw,bool)));
+    connect(&dlg_fraeser, SIGNAL(Data(text_zw, bool)), this, SLOT(set_Data(text_zw, bool)));
+    connect(&dlg_bohrer, SIGNAL(Data(text_zw, bool)), this, SLOT(set_Data(text_zw, bool)));
+    connect(&dlg_saege, SIGNAL(Data(text_zw, bool)), this, SLOT(set_Data(text_zw, bool)));
 }
 
 mainwin_wkzmagazin::~mainwin_wkzmagazin()
@@ -24,7 +23,7 @@ mainwin_wkzmagazin::~mainwin_wkzmagazin()
 void mainwin_wkzmagazin::liste_aktualisieren()
 {
     ui->listWidget->clear();
-    for(uint i=0; i<Magazin.magazin_ptr()->count();i++)
+    for(uint i = 0; i < Magazin.magazin_ptr()->count(); i++)
     {
         QString zeile = Magazin.magazin_ptr()->at(i);
         text_zw wkz(zeile, WKZ_TRENNZ);
@@ -33,25 +32,27 @@ void mainwin_wkzmagazin::liste_aktualisieren()
         {
             wkz_fraeser fraeser(wkz);
             istaktiv = fraeser.istaktiv();
-            zeile  = "Fräser           ";
+            zeile = "Fräser           ";
             zeile += double_to_qstring(fraeser.dm());
             zeile += "mm";
             zeile += "\t";
             zeile += fraeser.wkznr();
-        }else if(wkz.at(0) == WKZ_TYP_BOHRER)
+        }
+        else if(wkz.at(0) == WKZ_TYP_BOHRER)
         {
             wkz_bohrer bohrer(wkz);
             istaktiv = bohrer.istaktiv();
-            zeile  = "Bohrer         ";
+            zeile = "Bohrer         ";
             zeile += bohrer.wkznr();
             zeile += "\t";
             zeile += double_to_qstring(bohrer.dmexport());
             zeile += "mm";
-        }else if(wkz.at(0) == WKZ_TYP_SAEGE)
+        }
+        else if(wkz.at(0) == WKZ_TYP_SAEGE)
         {
             wkz_saege saege(wkz);
             istaktiv = saege.istaktiv();
-            zeile  = "Säge           ";
+            zeile = "Säge           ";
             zeile += saege.wkznr();
             zeile += "\t";
             zeile += double_to_qstring(saege.dm());
@@ -62,7 +63,7 @@ void mainwin_wkzmagazin::liste_aktualisieren()
         {
             QBrush brush;
             brush.setColor(Qt::gray);
-            ui->listWidget->item(ui->listWidget->count()-1)->setBackground(brush);
+            ui->listWidget->item(ui->listWidget->count() - 1)->setBackground(brush);
         }
     }
     ui->listWidget->addItem("...");
@@ -73,8 +74,8 @@ void mainwin_wkzmagazin::info_aktualisieren(uint index)
     wkz.set_text(Magazin.magazin_ptr()->at(index), WKZ_TRENNZ);
     ui->tableWidget_info->clear();
     ui->tableWidget_info->setColumnCount(2);
-    ui->tableWidget_info->setColumnWidth(0, ui->tableWidget_info->width()/2-1);
-    ui->tableWidget_info->setColumnWidth(1, ui->tableWidget_info->width()/2-1);
+    ui->tableWidget_info->setColumnWidth(0, ui->tableWidget_info->width() / 2 - 1);
+    ui->tableWidget_info->setColumnWidth(1, ui->tableWidget_info->width() / 2 - 1);
     if(wkz.at(0) == WKZ_TYP_FRAESER)
     {
         wkz_fraeser f(wkz);
@@ -101,7 +102,8 @@ void mainwin_wkzmagazin::info_aktualisieren(uint index)
         if(f.nurdirektzuw())
         {
             rumpf.add_hi("nur direkt");
-        }else
+        }
+        else
         {
             rumpf.add_hi("nicht nur direkt");
         }
@@ -109,7 +111,8 @@ void mainwin_wkzmagazin::info_aktualisieren(uint index)
         if(f.istverti())
         {
             rumpf.add_hi("ja");
-        }else
+        }
+        else
         {
             rumpf.add_hi("nein");
         }
@@ -117,7 +120,8 @@ void mainwin_wkzmagazin::info_aktualisieren(uint index)
         if(f.isthori())
         {
             rumpf.add_hi("ja");
-        }else
+        }
+        else
         {
             rumpf.add_hi("nein");
         }
@@ -125,20 +129,22 @@ void mainwin_wkzmagazin::info_aktualisieren(uint index)
         if(f.kann_bohrend_eintauchen())
         {
             rumpf.add_hi("ja");
-        }else
+        }
+        else
         {
             rumpf.add_hi("nein");
         }
         ui->tableWidget_info->setRowCount(kopf.count());
-        for(uint i=0;i<kopf.count();i++)
+        for(uint i = 0; i < kopf.count(); i++)
         {
-            ui->tableWidget_info->setItem(i,0, new QTableWidgetItem(kopf.at(i)));
+            ui->tableWidget_info->setItem(i, 0, new QTableWidgetItem(kopf.at(i)));
         }
-        for(uint i=0;i<rumpf.count();i++)
+        for(uint i = 0; i < rumpf.count(); i++)
         {
-            ui->tableWidget_info->setItem(i,1, new QTableWidgetItem(rumpf.at(i)));
+            ui->tableWidget_info->setItem(i, 1, new QTableWidgetItem(rumpf.at(i)));
         }
-    }else if(wkz.at(0) == WKZ_TYP_BOHRER)
+    }
+    else if(wkz.at(0) == WKZ_TYP_BOHRER)
     {
         wkz_bohrer b(wkz);
         text_zw kopf, rumpf;
@@ -160,7 +166,8 @@ void mainwin_wkzmagazin::info_aktualisieren(uint index)
         if(b.istdubo())
         {
             rumpf.add_hi("ja");
-        }else
+        }
+        else
         {
             rumpf.add_hi("nein");
         }
@@ -168,7 +175,8 @@ void mainwin_wkzmagazin::info_aktualisieren(uint index)
         if(b.istverti())
         {
             rumpf.add_hi("ja");
-        }else
+        }
+        else
         {
             rumpf.add_hi("nein");
         }
@@ -176,20 +184,22 @@ void mainwin_wkzmagazin::info_aktualisieren(uint index)
         if(b.isthori())
         {
             rumpf.add_hi("ja");
-        }else
+        }
+        else
         {
             rumpf.add_hi("nein");
-        }        
+        }
         ui->tableWidget_info->setRowCount(kopf.count());
-        for(uint i=0;i<kopf.count();i++)
+        for(uint i = 0; i < kopf.count(); i++)
         {
-            ui->tableWidget_info->setItem(i,0, new QTableWidgetItem(kopf.at(i)));
+            ui->tableWidget_info->setItem(i, 0, new QTableWidgetItem(kopf.at(i)));
         }
-        for(uint i=0;i<rumpf.count();i++)
+        for(uint i = 0; i < rumpf.count(); i++)
         {
-            ui->tableWidget_info->setItem(i,1, new QTableWidgetItem(rumpf.at(i)));
+            ui->tableWidget_info->setItem(i, 1, new QTableWidgetItem(rumpf.at(i)));
         }
-    }else if(wkz.at(0) == WKZ_TYP_SAEGE)
+    }
+    else if(wkz.at(0) == WKZ_TYP_SAEGE)
     {
         wkz_saege s(wkz);
         text_zw kopf, rumpf;
@@ -205,7 +215,8 @@ void mainwin_wkzmagazin::info_aktualisieren(uint index)
         if(s.istverti())
         {
             rumpf.add_hi("ja");
-        }else
+        }
+        else
         {
             rumpf.add_hi("nein");
         }
@@ -213,20 +224,22 @@ void mainwin_wkzmagazin::info_aktualisieren(uint index)
         if(s.isthori())
         {
             rumpf.add_hi("ja");
-        }else
+        }
+        else
         {
             rumpf.add_hi("nein");
         }
         ui->tableWidget_info->setRowCount(kopf.count());
-        for(uint i=0;i<kopf.count();i++)
+        for(uint i = 0; i < kopf.count(); i++)
         {
-            ui->tableWidget_info->setItem(i,0, new QTableWidgetItem(kopf.at(i)));
+            ui->tableWidget_info->setItem(i, 0, new QTableWidgetItem(kopf.at(i)));
         }
-        for(uint i=0;i<rumpf.count();i++)
+        for(uint i = 0; i < rumpf.count(); i++)
         {
-            ui->tableWidget_info->setItem(i,1, new QTableWidgetItem(rumpf.at(i)));
+            ui->tableWidget_info->setItem(i, 1, new QTableWidgetItem(rumpf.at(i)));
         }
-    }else
+    }
+    else
     {
         ui->tableWidget_info->clear();
         ui->tableWidget_info->setColumnCount(0);
@@ -240,10 +253,12 @@ void mainwin_wkzmagazin::edit(uint index)
     if(wkz.at(0) == WKZ_TYP_FRAESER)
     {
         dlg_fraeser.set_Data(wkz);
-    }else if(wkz.at(0) == WKZ_TYP_BOHRER)
+    }
+    else if(wkz.at(0) == WKZ_TYP_BOHRER)
     {
         dlg_bohrer.set_Data(wkz);
-    }else if(wkz.at(0) == WKZ_TYP_SAEGE)
+    }
+    else if(wkz.at(0) == WKZ_TYP_SAEGE)
     {
         dlg_saege.set_Data(wkz);
     }
@@ -256,7 +271,8 @@ void mainwin_wkzmagazin::set_Data(text_zw wkz, bool ist_neues_wkz)
         Magazin.magazin_ptr()->add_hi(wkz.text());
         UnReDo.neu(Magazin);
         liste_aktualisieren();
-    }else
+    }
+    else
     {
         int index = ui->listWidget->currentRow();
         Magazin.magazin_ptr()->edit(index, wkz.text());
@@ -274,26 +290,21 @@ void mainwin_wkzmagazin::set_wkzmag(QString fenstertitel, wkz_magazin wkzmag)
     this->show();
 }
 //-------------------------------------private slots:
-void mainwin_wkzmagazin::resizeEvent(QResizeEvent *event)
+void mainwin_wkzmagazin::resizeEvent(QResizeEvent* event)
 {
-    ui->listWidget->setFixedWidth(this->width()/3);
-    ui->listWidget->setFixedHeight(this->height()-100);
-    ui->listWidget->move(5,5);
+    ui->listWidget->setFixedWidth(this->width() / 3);
+    ui->listWidget->setFixedHeight(this->height() - 100);
+    ui->listWidget->move(5, 5);
     //----------------------
     int abst_unten = 30;
-    ui->tableWidget_info->setFixedWidth(this->width()-ui->listWidget->width()-5*3);
-    ui->tableWidget_info->setFixedHeight(ui->listWidget->height()-abst_unten);
-    ui->tableWidget_info->move(ui->listWidget->pos().x()+ui->listWidget->width()+5,\
-                            ui->listWidget->pos().y());
+    ui->tableWidget_info->setFixedWidth(this->width() - ui->listWidget->width() - 5 * 3);
+    ui->tableWidget_info->setFixedHeight(ui->listWidget->height() - abst_unten);
+    ui->tableWidget_info->move(ui->listWidget->pos().x() + ui->listWidget->width() + 5, ui->listWidget->pos().y());
     //----------------------
-    int breite_un = ui->tableWidget_info->width()\
-                   -ui->pushButton_speichern->width()\
-                   -ui->pushButton_abbrechen->width()\
-                   -5;
-    ui->pushButton_speichern->move(ui->tableWidget_info->pos().x()+breite_un/2,\
-                                   ui->tableWidget_info->pos().y()+ui->tableWidget_info->height()+5);
-    ui->pushButton_abbrechen->move(ui->pushButton_speichern->pos().x()+ui->pushButton_speichern->width()+5,\
-                                   ui->pushButton_speichern->pos().y());
+    int breite_un = ui->tableWidget_info->width() - ui->pushButton_speichern->width() - ui->pushButton_abbrechen->width() - 5;
+    ui->pushButton_speichern->move(ui->tableWidget_info->pos().x() + breite_un / 2,
+                                   ui->tableWidget_info->pos().y() + ui->tableWidget_info->height() + 5);
+    ui->pushButton_abbrechen->move(ui->pushButton_speichern->pos().x() + ui->pushButton_speichern->width() + 5, ui->pushButton_speichern->pos().y());
 }
 
 void mainwin_wkzmagazin::on_actionFraeser_anlegen_triggered()
@@ -311,40 +322,40 @@ void mainwin_wkzmagazin::on_actionSaege_anlegen_triggered()
 void mainwin_wkzmagazin::on_actionRunter_triggered()
 {
     int index = ui->listWidget->currentRow();
-    if((ui->listWidget->currentIndex().isValid())  &&  \
-       (ui->listWidget->currentItem()->isSelected())    )
+    if((ui->listWidget->currentIndex().isValid()) && (ui->listWidget->currentItem()->isSelected()))
     {
         Magazin.item_down(index);
         UnReDo.neu(Magazin);
         liste_aktualisieren();
-        if(index+2 < ui->listWidget->count())
+        if(index + 2 < ui->listWidget->count())
         {
-            ui->listWidget->setCurrentRow(index+1);
-        }else
+            ui->listWidget->setCurrentRow(index + 1);
+        }
+        else
         {
             ui->listWidget->setCurrentRow(index);
         }
-    }    
+    }
 }
 void mainwin_wkzmagazin::on_actionHoch_triggered()
 {
     int index = ui->listWidget->currentRow();
-    if((ui->listWidget->currentIndex().isValid())  &&  \
-       (ui->listWidget->currentItem()->isSelected())    )
+    if((ui->listWidget->currentIndex().isValid()) && (ui->listWidget->currentItem()->isSelected()))
     {
         Magazin.item_up(index);
         UnReDo.neu(Magazin);
         liste_aktualisieren();
         if(index > 0)
         {
-            ui->listWidget->setCurrentRow(index-1);
-        }else
+            ui->listWidget->setCurrentRow(index - 1);
+        }
+        else
         {
             ui->listWidget->setCurrentRow(index);
         }
     }
 }
-void mainwin_wkzmagazin::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
+void mainwin_wkzmagazin::on_listWidget_itemDoubleClicked(QListWidgetItem* item)
 {
     int index = ui->listWidget->currentRow();
     edit(index);
@@ -356,8 +367,7 @@ void mainwin_wkzmagazin::on_listWidget_currentRowChanged(int currentRow)
 void mainwin_wkzmagazin::on_actionL_schen_triggered()
 {
     int index = ui->listWidget->currentRow();
-    if((ui->listWidget->currentIndex().isValid())  &&  \
-       (ui->listWidget->currentItem()->isSelected())    )
+    if((ui->listWidget->currentIndex().isValid()) && (ui->listWidget->currentItem()->isSelected()))
     {
         Magazin.entf(index);
         UnReDo.neu(Magazin);
@@ -377,18 +387,19 @@ void mainwin_wkzmagazin::on_actionRedo_triggered()
 void mainwin_wkzmagazin::on_actionDuplizieren_triggered()
 {
     int index = ui->listWidget->currentRow();
-    if((ui->listWidget->currentIndex().isValid())  &&  \
-       (ui->listWidget->currentItem()->isSelected())    )
+    if((ui->listWidget->currentIndex().isValid()) && (ui->listWidget->currentItem()->isSelected()))
     {
         text_zw wkz;
         wkz.set_text(Magazin.magazin_ptr()->at(index), WKZ_TRENNZ);
         if(wkz.at(0) == WKZ_TYP_FRAESER)
         {
             dlg_fraeser.set_Data(wkz, true);
-        }else if(wkz.at(0) == WKZ_TYP_BOHRER)
+        }
+        else if(wkz.at(0) == WKZ_TYP_BOHRER)
         {
             dlg_bohrer.set_Data(wkz, true);
-        }else if(wkz.at(0) == WKZ_TYP_SAEGE)
+        }
+        else if(wkz.at(0) == WKZ_TYP_SAEGE)
         {
             dlg_saege.set_Data(wkz, true);
         }

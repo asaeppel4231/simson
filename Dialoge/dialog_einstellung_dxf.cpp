@@ -1,9 +1,8 @@
 #include "dialog_einstellung_dxf.h"
+
 #include "ui_dialog_einstellung_dxf.h"
 
-Dialog_einstellung_dxf::Dialog_einstellung_dxf(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_einstellung_dxf)
+Dialog_einstellung_dxf::Dialog_einstellung_dxf(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_einstellung_dxf)
 {
     ui->setupUi(this);
     ui->comboBox_drehdypUnterseite->addItem("L");
@@ -142,7 +141,8 @@ void Dialog_einstellung_dxf::slot_einstellung(einstellung_dxf e)
     if(Einstellung.drehtypUnsei() == "L")
     {
         ui->comboBox_drehdypUnterseite->setCurrentIndex(0);
-    }else
+    }
+    else
     {
         ui->comboBox_drehdypUnterseite->setCurrentIndex(1);
     }
@@ -153,7 +153,8 @@ void Dialog_einstellung_dxf::slot_einstellung(einstellung_dxf e)
     if(Einstellung.bezugTiFkonUnSei())
     {
         ui->comboBox_bezugTiFkon->setCurrentIndex(0);
-    }else
+    }
+    else
     {
         ui->comboBox_bezugTiFkon->setCurrentIndex(1);
     }

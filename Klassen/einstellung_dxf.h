@@ -1,17 +1,18 @@
 #ifndef EINSTELLUNG_DXF_H
 #define EINSTELLUNG_DXF_H
 
-#include <QString>
 #include <QMessageBox>
-#include "Klassen/text_zw.h"
+#include <QString>
+
 #include "Funktionen/umwandeln.h"
+#include "Klassen/text_zw.h"
 
 class einstellung_dxf
 {
-public:
+  public:
     einstellung_dxf();
 
-    //set:
+    // set:
     void set_text(QString t);
     void set_paramtren(QString parametertrennzeichen);
     void set_dezitren(QString dezimaltrenner);
@@ -24,7 +25,7 @@ public:
     void set_kenRadKorRe(QString kennung);
     void set_bezugTiFkon(QString bezug);
 
-    //get:
+    // get:
     QString text();
     QString paramtren();
     QString dezitren();
@@ -41,7 +42,7 @@ public:
     bool bezugTiFkonObSei();
     bool bezugTiFkonUnSei();
 
-private:
+  private:
     QString Paramtren;
     QString Dezitren;
     QString KennungOberseite;
@@ -52,12 +53,10 @@ private:
     QString KennungRadKorMi;
     QString KennungRadKorRe;
     QString BezugTiFkon;
-
 };
 
 #endif // EINSTELLUNG_DXF_H
 
 //-------------------Funktionen nicht innerhalb der Klasse:
-bool operator ==(einstellung_dxf e1, einstellung_dxf e2);
-bool operator !=(einstellung_dxf e1, einstellung_dxf e2);
-
+bool operator==(einstellung_dxf e1, einstellung_dxf e2);
+bool operator!=(einstellung_dxf e1, einstellung_dxf e2);

@@ -2,12 +2,11 @@
 
 prgpfade::prgpfade()
 {
-    Inifile             = "einstellungen.ini";
-    ini_dxf             = "dxf.ini";
-    ini_dxf_klassen     = "dxf_klassen.ini";
-    Wkz                 = "wkz_magazin.csv";
-    Masch_ini           = "maschine.ini";
-
+    Inifile = "einstellungen.ini";
+    ini_dxf = "dxf.ini";
+    ini_dxf_klassen = "dxf_klassen.ini";
+    Wkz = "wkz_magazin.csv";
+    Masch_ini = "maschine.ini";
 }
 
 void prgpfade::ordner_erstellen()
@@ -58,7 +57,7 @@ QString prgpfade::path_prg()
     QString tmp;
 
 #ifdef _WIN32
-    //tmp = "C:\\Program Files\\simson";
+    // tmp = "C:\\Program Files\\simson";
     tmp = QCoreApplication::applicationDirPath();
 #endif //_WIN32
 

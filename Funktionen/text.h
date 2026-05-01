@@ -1,7 +1,7 @@
 #ifndef TEXT_H
 #define TEXT_H
 
-#include<QString>
+#include <QString>
 
 QString selektiereEintrag(QString text, QString beginntMit, QString endetMit);
 QString text_links(const QString text, const QString trenntext);

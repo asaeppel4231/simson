@@ -2,25 +2,25 @@
 
 einstellung_dxf::einstellung_dxf()
 {
-    Paramtren               = "_";
-    Dezitren                = "_";
-    KennungOberseite        = "_1";
-    KennungUnterseite       = "_2";
-    DrehtypUnterseite       = "B";
-    KennungWKZnr            = "T";
-    KennungRadKorLi         = "L";
-    KennungRadKorMi         = "N";
-    KennungRadKorRe         = "R";
-    BezugTiFkon             = "Unterseite Bauteil";
+    Paramtren = "_";
+    Dezitren = "_";
+    KennungOberseite = "_1";
+    KennungUnterseite = "_2";
+    DrehtypUnterseite = "B";
+    KennungWKZnr = "T";
+    KennungRadKorLi = "L";
+    KennungRadKorMi = "N";
+    KennungRadKorRe = "R";
+    BezugTiFkon = "Unterseite Bauteil";
 }
 void einstellung_dxf::set_text(QString t)
 {
     text_zw tz;
-    tz.set_text(t,'\n');
-    for(uint i=0;i<tz.count();i++)
+    tz.set_text(t, '\n');
+    for(uint i = 0; i < tz.count(); i++)
     {
         text_zw spalten;
-        spalten.set_text(tz.at(i),'\t');
+        spalten.set_text(tz.at(i), '\t');
         if(spalten.at(0) == "Parametertrenner:")
         {
             set_paramtren(spalten.at(1));
@@ -187,7 +187,8 @@ bool einstellung_dxf::drehtyp_L()
     if(drehtypUnsei() == "L")
     {
         return true;
-    }else
+    }
+    else
     {
         return false;
     }
@@ -197,7 +198,8 @@ bool einstellung_dxf::drehtyp_B()
     if(drehtypUnsei() == "B")
     {
         return true;
-    }else
+    }
+    else
     {
         return false;
     }
@@ -227,7 +229,8 @@ bool einstellung_dxf::bezugTiFkonObSei()
     if(bezugTiFkon() == "Oberseite Bauteil")
     {
         return true;
-    }else
+    }
+    else
     {
         return false;
     }
@@ -237,49 +240,37 @@ bool einstellung_dxf::bezugTiFkonUnSei()
     if(bezugTiFkon() == "Unterseite Bauteil")
     {
         return true;
-    }else
+    }
+    else
     {
         return false;
     }
 }
 
 //-------------------Funktionen nicht innerhalb der Klasse:
-bool operator ==(einstellung_dxf e1, einstellung_dxf e2)
+bool operator==(einstellung_dxf e1, einstellung_dxf e2)
 {
-    if(e1.paramtren() == e2.paramtren()  && \
-       e1.dezitren() == e2.dezitren()    && \
-       e1.kenObsei() == e2.kenObsei()    && \
-       e1.kenUnsei() == e2.kenUnsei()    && \
-       e1.drehtypUnsei() == e2.drehtypUnsei()&& \
-       e1.kenWKZnr() == e2.kenWKZnr()&& \
-       e1.kenRadKorLi() == e2.kenRadKorLi()&& \
-       e1.kenRadKorMi() == e2.kenRadKorMi()&& \
-       e1.kenRadKorRe() == e2.kenRadKorRe()&&\
-       e1.bezugTiFkon() == e2.bezugTiFkon()  )
+    if(e1.paramtren() == e2.paramtren() && e1.dezitren() == e2.dezitren() && e1.kenObsei() == e2.kenObsei() && e1.kenUnsei() == e2.kenUnsei() &&
+       e1.drehtypUnsei() == e2.drehtypUnsei() && e1.kenWKZnr() == e2.kenWKZnr() && e1.kenRadKorLi() == e2.kenRadKorLi() &&
+       e1.kenRadKorMi() == e2.kenRadKorMi() && e1.kenRadKorRe() == e2.kenRadKorRe() && e1.bezugTiFkon() == e2.bezugTiFkon())
     {
         return true;
-    }else
+    }
+    else
     {
         return false;
     }
 }
-bool operator !=(einstellung_dxf e1, einstellung_dxf e2)
+bool operator!=(einstellung_dxf e1, einstellung_dxf e2)
 {
-    if(e1.paramtren() == e2.paramtren()  && \
-       e1.dezitren() == e2.dezitren()    && \
-       e1.kenObsei() == e2.kenObsei()    && \
-       e1.kenUnsei() == e2.kenUnsei()    && \
-       e1.drehtypUnsei() == e2.drehtypUnsei()&& \
-       e1.kenWKZnr() == e2.kenWKZnr()&& \
-       e1.kenRadKorLi() == e2.kenRadKorLi()&& \
-       e1.kenRadKorMi() == e2.kenRadKorMi()&& \
-       e1.kenRadKorRe() == e2.kenRadKorRe()&&\
-       e1.bezugTiFkon() == e2.bezugTiFkon()  )
+    if(e1.paramtren() == e2.paramtren() && e1.dezitren() == e2.dezitren() && e1.kenObsei() == e2.kenObsei() && e1.kenUnsei() == e2.kenUnsei() &&
+       e1.drehtypUnsei() == e2.drehtypUnsei() && e1.kenWKZnr() == e2.kenWKZnr() && e1.kenRadKorLi() == e2.kenRadKorLi() &&
+       e1.kenRadKorMi() == e2.kenRadKorMi() && e1.kenRadKorRe() == e2.kenRadKorRe() && e1.bezugTiFkon() == e2.bezugTiFkon())
     {
         return false;
-    }else
+    }
+    else
     {
         return true;
     }
 }
-

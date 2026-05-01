@@ -1,18 +1,19 @@
 #ifndef WENNDANNSONST_H
 #define WENNDANNSONST_H
 
-#include <QString>
 #include <QMessageBox>
+#include <QString>
+
 #include "formel.h"
 
 class WennDannSonst : public Formel
 {
-public:
+  public:
     WennDannSonst();
     WennDannSonst(QString WennDannSonst_formel);
     void formelText_setzen(QString text);
 
-protected:
+  protected:
     QString vergleich_oparator(const QString text);
     QString vergleich_links(const QString text);
     QString vergleich_rechts(const QString text);
@@ -28,9 +29,7 @@ protected:
 
     double ergebnis_berechnen(QString formelText);
 
-private:
-
-
+  private:
 };
 
 #endif // WENNDANNSONST_H

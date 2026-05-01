@@ -1,9 +1,8 @@
 #include "dialog_saege.h"
+
 #include "ui_dialog_saege.h"
 
-Dialog_saege::Dialog_saege(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_saege)
+Dialog_saege::Dialog_saege(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_saege)
 {
     ui->setupUi(this);
 }
@@ -59,25 +58,29 @@ void Dialog_saege::on_pushButton_ok_clicked()
         mb.setText("Bitte zuerst eine Werkzeugnummer eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_breite->text().isEmpty())
+    }
+    else if(ui->lineEdit_breite->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst eine Schnittbteite eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_dm->text().isEmpty())
+    }
+    else if(ui->lineEdit_dm->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst einen Blattdurchmesser eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_zustm->text().isEmpty())
+    }
+    else if(ui->lineEdit_zustm->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst ein Zustellmaß eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else
+    }
+    else
     {
         this->hide();
         wkz_saege saege;

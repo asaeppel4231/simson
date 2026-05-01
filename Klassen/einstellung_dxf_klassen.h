@@ -1,17 +1,18 @@
 #ifndef EINSTELLUNG_DXF_KLASSEN_H
 #define EINSTELLUNG_DXF_KLASSEN_H
 
-#include <QString>
 #include <QMessageBox>
-#include "Klassen/text_zw.h"
+#include <QString>
+
 #include "Funktionen/umwandeln.h"
+#include "Klassen/text_zw.h"
 
 class einstellung_dxf_klassen
 {
-public:
+  public:
     einstellung_dxf_klassen();
 
-    //set:
+    // set:
     void set_text(QString t);
     void set_wst(QString wstklasse);
     void set_bohr_vert(QString klasse);
@@ -22,7 +23,7 @@ public:
     void set_zapfen(QString klasse);
     void set_fraes_vert(QString klasse);
 
-    //get:
+    // get:
     QString text();
     QString wst();
     QString bohr_vert();
@@ -33,20 +34,19 @@ public:
     QString zapfen();
     QString fraes_vert();
 
-    private:
-        QString Wst;
-        QString BohrVert;
-        QString BohrHori;
-        QString NutVert;
-        QString FraesVert;
-        QString Kta;
-        QString Rta;
-        QString Zapfen;
-
+  private:
+    QString Wst;
+    QString BohrVert;
+    QString BohrHori;
+    QString NutVert;
+    QString FraesVert;
+    QString Kta;
+    QString Rta;
+    QString Zapfen;
 };
 
 #endif // EINSTELLUNG_DXF_KLASSEN_H
 
 //-------------------Funktionen nicht innerhalb der Klasse:
-bool operator ==(einstellung_dxf_klassen e1, einstellung_dxf_klassen e2);
-bool operator !=(einstellung_dxf_klassen e1, einstellung_dxf_klassen e2);
+bool operator==(einstellung_dxf_klassen e1, einstellung_dxf_klassen e2);
+bool operator!=(einstellung_dxf_klassen e1, einstellung_dxf_klassen e2);

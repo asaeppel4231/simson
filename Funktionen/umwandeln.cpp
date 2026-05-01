@@ -1,5 +1,4 @@
-#include"umwandeln.h"
-
+#include "umwandeln.h"
 
 std::string int_to_string(int zahl)
 {

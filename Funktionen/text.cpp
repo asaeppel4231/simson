@@ -11,22 +11,24 @@ QString selektiereEintrag(QString text, QString beginntMit, QString endetMit)
     if(!text.contains(beginntMit))
     {
         return "Fehler in Funktion \"selektiereEintrag\" bei Parameter \"beginntMit\"!";
-    } else
+    }
+    else
     {
         indexBegin = text.indexOf(beginntMit);
-        indexBegin += lengthOf_beginntMit-1;
+        indexBegin += lengthOf_beginntMit - 1;
     }
 
     if(!text.contains(endetMit))
     {
         return "Fehler in Funktion \"selektiereEintrag\" bei Parameter \"endetMit\"!";
-    } else
+    }
+    else
     {
-        indexEnde = text.indexOf(endetMit,indexBegin);
+        indexEnde = text.indexOf(endetMit, indexBegin);
     }
 
-    countetLetters = indexEnde - indexBegin -1;
-    returnText = text.mid(indexBegin+1 , countetLetters);
+    countetLetters = indexEnde - indexBegin - 1;
+    returnText = text.mid(indexBegin + 1, countetLetters);
 
     return returnText;
 }
@@ -39,7 +41,7 @@ QString text_links(const QString text, const QString trenntext)
     }
     int beginn_Trenntext = text.indexOf(trenntext);
     QString return_string = "";
-    for(int i=0 ; i<beginn_Trenntext; i++)
+    for(int i = 0; i < beginn_Trenntext; i++)
     {
         return_string += text.at(i);
     }
@@ -52,9 +54,9 @@ QString text_rechts(const QString text, const QString trenntext)
     {
         return "";
     }
-    int ende_Trenntext = text.indexOf(trenntext)+trenntext.length();
+    int ende_Trenntext = text.indexOf(trenntext) + trenntext.length();
     QString return_string = "";
-    for(int i=ende_Trenntext ; i<text.count(); i++)
+    for(int i = ende_Trenntext; i < text.count(); i++)
     {
         return_string += text.at(i);
     }
@@ -64,7 +66,7 @@ QString text_rechts(const QString text, const QString trenntext)
 QString text_mitte(const QString text, const QString textDavor, const QString textDanach)
 {
     QString tmp = text_rechts(text, textDavor);
-    tmp = text_links( tmp, textDanach);
+    tmp = text_links(tmp, textDanach);
     return tmp;
 }
 
@@ -72,4 +74,3 @@ QString buchstaben_alle_GROSS_schreiben(QString text)
 {
     return text.toUpper();
 }
-

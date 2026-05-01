@@ -1,28 +1,27 @@
 #include "dialog_bearb_faufruf.h"
+
 #include "ui_dialog_bearb_faufruf.h"
 
-Dialog_bearb_faufruf::Dialog_bearb_faufruf(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_bearb_faufruf)
+Dialog_bearb_faufruf::Dialog_bearb_faufruf(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_bearb_faufruf)
 {
     ui->setupUi(this);
     Wst = nullptr;
     this->setWindowTitle("Fräseraufruf");
     ui->lineEdit_z->setEnabled(false);
-    ui->comboBox_bezug->addItem("Oberseite");   //0
-    ui->comboBox_bezug->addItem("Unterseite");  //1
+    ui->comboBox_bezug->addItem("Oberseite");  // 0
+    ui->comboBox_bezug->addItem("Unterseite"); // 1
     //---
-    ui->comboBox_kor->addItem("Links");  //0
-    ui->comboBox_kor->addItem("Keine");  //1
-    ui->comboBox_kor->addItem("Rechts"); //2
+    ui->comboBox_kor->addItem("Links");  // 0
+    ui->comboBox_kor->addItem("Keine");  // 1
+    ui->comboBox_kor->addItem("Rechts"); // 2
     //---
-    ui->comboBox_antyp->addItem("nicht definiert");  //0
-    ui->comboBox_antyp->addItem("Gerade");           //1
-    ui->comboBox_antyp->addItem("Bogen");            //2
+    ui->comboBox_antyp->addItem("nicht definiert"); // 0
+    ui->comboBox_antyp->addItem("Gerade");          // 1
+    ui->comboBox_antyp->addItem("Bogen");           // 2
     //---
-    ui->comboBox_abtyp->addItem("nicht definiert");  //0
-    ui->comboBox_abtyp->addItem("Gerade");           //1
-    ui->comboBox_abtyp->addItem("Bogen");            //2
+    ui->comboBox_abtyp->addItem("nicht definiert"); // 0
+    ui->comboBox_abtyp->addItem("Gerade");          // 1
+    ui->comboBox_abtyp->addItem("Bogen");           // 2
     //---
     connect(&dlg_wkzwahl, SIGNAL(send_wkz(QString)), this, SLOT(get_wkz(QString)));
     ui->btn_ok->setFocus();
@@ -33,7 +32,7 @@ Dialog_bearb_faufruf::~Dialog_bearb_faufruf()
     delete ui;
 }
 
-void Dialog_bearb_faufruf::set_data(QString d, werkstueck *w, text_zw wkzmag)
+void Dialog_bearb_faufruf::set_data(QString d, werkstueck* w, text_zw wkzmag)
 {
     Wst = w;
     Wkzmag = wkzmag;
@@ -45,23 +44,26 @@ void Dialog_bearb_faufruf::set_data(QString d, werkstueck *w, text_zw wkzmag)
     ui->lineEdit_y->setText(fa.y_qstring());
     ui->lineEdit_z->setText(fa.z_qstring());
     //---------
-    //Radiuskorrektur:
+    // Radiuskorrektur:
     if(fa.radkor() == FRKOR_L)
     {
         ui->comboBox_kor->setCurrentIndex(0);
-    }else if(fa.radkor() == FRKOR_M)
+    }
+    else if(fa.radkor() == FRKOR_M)
     {
         ui->comboBox_kor->setCurrentIndex(1);
-    }else //if(fa.radkor() == FRKOR_R)
+    }
+    else // if(fa.radkor() == FRKOR_R)
     {
         ui->comboBox_kor->setCurrentIndex(2);
     }
     //---------
-    //Bezug:
+    // Bezug:
     if(fa.bezug() == WST_BEZUG_OBSEI)
     {
         ui->comboBox_bezug->setCurrentIndex(0);
-    }else if(fa.bezug() == WST_BEZUG_UNSEI)
+    }
+    else if(fa.bezug() == WST_BEZUG_UNSEI)
     {
         ui->comboBox_bezug->setCurrentIndex(1);
     }
@@ -69,26 +71,30 @@ void Dialog_bearb_faufruf::set_data(QString d, werkstueck *w, text_zw wkzmag)
     ui->lineEdit_afb->setText(fa.afb());
     ui->lineEdit_wkz->setText(fa.wkznum());
     //---------
-    //Anfahrtyp:
+    // Anfahrtyp:
     if(fa.anfahrtyp() == FAUFRUF_ANABTYP_GARADE)
     {
         ui->comboBox_antyp->setCurrentIndex(1);
-    }else if(fa.anfahrtyp() == FAUFRUF_ANABTYP_BOGEN)
+    }
+    else if(fa.anfahrtyp() == FAUFRUF_ANABTYP_BOGEN)
     {
         ui->comboBox_antyp->setCurrentIndex(2);
-    }else //FAUFRUF_ANABTYP_NDEF
+    }
+    else // FAUFRUF_ANABTYP_NDEF
     {
         ui->comboBox_antyp->setCurrentIndex(0);
     }
     //---------
-    //Abfahrtyp:
+    // Abfahrtyp:
     if(fa.abfahrtyp() == FAUFRUF_ANABTYP_GARADE)
     {
         ui->comboBox_abtyp->setCurrentIndex(1);
-    }else if(fa.abfahrtyp() == FAUFRUF_ANABTYP_BOGEN)
+    }
+    else if(fa.abfahrtyp() == FAUFRUF_ANABTYP_BOGEN)
     {
         ui->comboBox_abtyp->setCurrentIndex(2);
-    }else //FAUFRUF_ANABTYP_NDEF
+    }
+    else // FAUFRUF_ANABTYP_NDEF
     {
         ui->comboBox_abtyp->setCurrentIndex(0);
     }
@@ -106,7 +112,8 @@ QString Dialog_bearb_faufruf::var_zu_wert(QString term)
         term.replace("B", Wst->breite_qstring());
         term.replace("D", Wst->dicke_qstring());
         term = berechnen(term);
-    }else
+    }
+    else
     {
         berechnen(term);
     }
@@ -125,10 +132,12 @@ void Dialog_bearb_faufruf::on_btn_ok_clicked()
     if(kor == "Links")
     {
         fa.set_radkor(FRKOR_L);
-    }else if(kor == "Keine")
+    }
+    else if(kor == "Keine")
     {
         fa.set_radkor(FRKOR_M);
-    }else //if(kor == "Rechts")
+    }
+    else // if(kor == "Rechts")
     {
         fa.set_radkor(FRKOR_R);
     }
@@ -136,7 +145,8 @@ void Dialog_bearb_faufruf::on_btn_ok_clicked()
     if(bezug == "Oberseite")
     {
         fa.set_bezug(WST_BEZUG_OBSEI);
-    }else if(bezug == "Unterseite")
+    }
+    else if(bezug == "Unterseite")
     {
         fa.set_bezug(WST_BEZUG_UNSEI);
     }
@@ -147,10 +157,12 @@ void Dialog_bearb_faufruf::on_btn_ok_clicked()
     if(antyp == "Gerade")
     {
         fa.set_anfahrtyp(FAUFRUF_ANABTYP_GARADE);
-    }else if(antyp == "Bogen")
+    }
+    else if(antyp == "Bogen")
     {
         fa.set_anfahrtyp(FAUFRUF_ANABTYP_BOGEN);
-    }else //nicht definiert
+    }
+    else // nicht definiert
     {
         fa.set_anfahrtyp(FAUFRUF_ANABTYP_NDEF);
     }
@@ -159,10 +171,12 @@ void Dialog_bearb_faufruf::on_btn_ok_clicked()
     if(abtyp == "Gerade")
     {
         fa.set_abfahrtyp(FAUFRUF_ANABTYP_GARADE);
-    }else if(abtyp == "Bogen")
+    }
+    else if(abtyp == "Bogen")
     {
         fa.set_abfahrtyp(FAUFRUF_ANABTYP_BOGEN);
-    }else //nicht definiert
+    }
+    else // nicht definiert
     {
         fa.set_abfahrtyp(FAUFRUF_ANABTYP_NDEF);
     }
@@ -191,21 +205,21 @@ void Dialog_bearb_faufruf::get_wkz(QString wkz)
     ui->lineEdit_wkz->setText(wkz);
 }
 
-void Dialog_bearb_faufruf::on_comboBox_kor_currentTextChanged(const QString &arg1)
+void Dialog_bearb_faufruf::on_comboBox_kor_currentTextChanged(const QString& arg1)
 {
     if(arg1 == "Keine")
     {
         if(ui->comboBox_antyp->currentText() == "Bogen")
         {
-            ui->comboBox_antyp->setCurrentIndex(1);//Gerade
+            ui->comboBox_antyp->setCurrentIndex(1); // Gerade
         }
         if(ui->comboBox_abtyp->currentText() == "Bogen")
         {
-            ui->comboBox_abtyp->setCurrentIndex(1);//Gerade
+            ui->comboBox_abtyp->setCurrentIndex(1); // Gerade
         }
     }
 }
-void Dialog_bearb_faufruf::on_comboBox_bezug_currentTextChanged(const QString &arg1)
+void Dialog_bearb_faufruf::on_comboBox_bezug_currentTextChanged(const QString& arg1)
 {
     if(arg1 == "Oberseite")
     {
@@ -213,14 +227,9 @@ void Dialog_bearb_faufruf::on_comboBox_bezug_currentTextChanged(const QString &a
         {
             ui->lineEdit_z->setText(Wst->dicke_qstring());
         }
-    }else if(arg1 == "Unterseite")
+    }
+    else if(arg1 == "Unterseite")
     {
         ui->lineEdit_z->setText("0");
     }
 }
-
-
-
-
-
-

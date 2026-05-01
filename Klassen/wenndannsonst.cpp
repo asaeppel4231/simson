@@ -5,7 +5,7 @@ WennDannSonst::WennDannSonst()
     formelText_setzen("");
 }
 
-WennDannSonst::WennDannSonst( QString WennDannSonst_formel)
+WennDannSonst::WennDannSonst(QString WennDannSonst_formel)
 {
     formelText_setzen(WennDannSonst_formel);
 }
@@ -14,7 +14,7 @@ void WennDannSonst::formelText_setzen(QString text)
 {
     fehler_nullen();
     text = leerzeichen_entfernen(text);
-    ergebnis_setzen(  ergebnis_berechnen(text)  );
+    ergebnis_setzen(ergebnis_berechnen(text));
 }
 
 QString WennDannSonst::vergleich_oparator(const QString text)
@@ -24,18 +24,19 @@ QString WennDannSonst::vergleich_oparator(const QString text)
     int indexEnde = 0;
     bool operatorGefunden = false;
 
-    for(int i=0 ; i<text.count()-1 ; i++)
+    for(int i = 0; i < text.count() - 1; i++)
     {
-        if(  text.at(i)=='>'  ||  text.at(i)=='<'  )
+        if(text.at(i) == '>' || text.at(i) == '<')
         {
             indexBegin = i;
             indexEnde = i;
             operatorGefunden = true;
-            if(  text.at(i+1)=='='  )
+            if(text.at(i + 1) == '=')
             {
-                indexEnde = i+1;
+                indexEnde = i + 1;
                 break;
-            }else
+            }
+            else
             {
                 break;
             }
@@ -43,18 +44,18 @@ QString WennDannSonst::vergleich_oparator(const QString text)
     }
     if(operatorGefunden == false)
     {
-        for(int i=0 ; i<text.count()-1 ; i++)
+        for(int i = 0; i < text.count() - 1; i++)
         {
-            if(  (text.at(i)=='=' && text.at(i+1)=='=')  ||  (text.at(i)=='!' && text.at(i+1)=='=')  )
+            if((text.at(i) == '=' && text.at(i + 1) == '=') || (text.at(i) == '!' && text.at(i + 1) == '='))
             {
                 indexBegin = i;
-                indexEnde = i+1;
+                indexEnde = i + 1;
                 operatorGefunden = true;
                 break;
             }
         }
     }
-    if(  indexEnde+1<text.count()  &&  !ist_ziffer(text.at(indexEnde+1))  )
+    if(indexEnde + 1 < text.count() && !ist_ziffer(text.at(indexEnde + 1)))
     {
         fehler_melden("Fehler! ungueltiger Vergleichsoperator");
         return "";
@@ -62,7 +63,8 @@ QString WennDannSonst::vergleich_oparator(const QString text)
     if(indexBegin == indexEnde)
     {
         returnString = text.at(indexBegin);
-    }else
+    }
+    else
     {
         returnString = text.at(indexBegin);
         returnString += text.at(indexEnde);
@@ -70,7 +72,8 @@ QString WennDannSonst::vergleich_oparator(const QString text)
     if(operatorGefunden == true)
     {
         return returnString;
-    }else
+    }
+    else
     {
         fehler_melden("Fehler! Keinen gueltigen Vergleichoperator gefunden!");
     }
@@ -79,22 +82,23 @@ QString WennDannSonst::vergleich_oparator(const QString text)
 
 QString WennDannSonst::vergleich_links(const QString text)
 {
-       QString returnString = "";
-       for(int i=0 ; i<text.count() ; i++)
-       {
-           if( text.at(i)=='<'  ||  text.at(i)=='>'  ||  text.at(i)=='='  ||  text.at(i)=='!'  )
-           {
-               break;
-           }else
-           {
-               returnString += text.at(i);
-           }
-       }
-       if(returnString == "")
-       {
-           fehler_melden("Fehler! links neben Vergleichsoperator nichts gefunden!");
-       }
-       return returnString;
+    QString returnString = "";
+    for(int i = 0; i < text.count(); i++)
+    {
+        if(text.at(i) == '<' || text.at(i) == '>' || text.at(i) == '=' || text.at(i) == '!')
+        {
+            break;
+        }
+        else
+        {
+            returnString += text.at(i);
+        }
+    }
+    if(returnString == "")
+    {
+        fehler_melden("Fehler! links neben Vergleichsoperator nichts gefunden!");
+    }
+    return returnString;
 }
 
 QString WennDannSonst::vergleich_rechts(const QString text)
@@ -102,11 +106,11 @@ QString WennDannSonst::vergleich_rechts(const QString text)
     QString returnString = "";
     int indexBegin = 0;
 
-    for(int i=0 ; i<text.count()-1 ; i++)
+    for(int i = 0; i < text.count() - 1; i++)
     {
-        if(  (text.at(i)=='<'  ||  text.at(i)=='>'  ||  text.at(i)=='='  ||  text.at(i)=='!')  &&  (text.at(i+1)!='=')  )
+        if((text.at(i) == '<' || text.at(i) == '>' || text.at(i) == '=' || text.at(i) == '!') && (text.at(i + 1) != '='))
         {
-            indexBegin = i+1;
+            indexBegin = i + 1;
             break;
         }
     }
@@ -114,7 +118,7 @@ QString WennDannSonst::vergleich_rechts(const QString text)
     {
         fehler_melden("Fehler! rechts neben Vergleichsoperator nichts gefunden!");
     }
-    for(int i=indexBegin ; i<text.count() ; i++)
+    for(int i = indexBegin; i < text.count(); i++)
     {
         returnString += text.at(i);
     }
@@ -130,11 +134,13 @@ bool WennDannSonst::vergleich_ist_wahr(const QString text)
             if(text == "0")
             {
                 return false;
-            }else
+            }
+            else
             {
                 return true;
             }
-        }else
+        }
+        else
         {
             Formel f(text);
             if(!f.ist_fehlerhaft())
@@ -143,7 +149,8 @@ bool WennDannSonst::vergleich_ist_wahr(const QString text)
                 if(erg == "0")
                 {
                     return false;
-                }else
+                }
+                else
                 {
                     return true;
                 }
@@ -164,7 +171,7 @@ bool WennDannSonst::vergleich_ist_wahr(const QString text)
     rechts = vergleich_rechts(text);
 
     if(ist_fehlerhaft())
-    {//Wenn die Funktionen oben Fehler gemeldet haben
+    { // Wenn die Funktionen oben Fehler gemeldet haben
         return false;
     }
 
@@ -172,12 +179,13 @@ bool WennDannSonst::vergleich_ist_wahr(const QString text)
     if(!ausdruck_links.ist_fehlerhaft())
     {
         linksZahl = ausdruck_links.bekomme_Ergebnis_als_double();
-    }else
+    }
+    else
     {
         fehler_melden(ausdruck_links.bekomme_fehler_text());
-        //QMessageBox mb;
-        //mb.setText(ausdruck_links.bekomme_fehler_text());
-        //mb.exec();
+        // QMessageBox mb;
+        // mb.setText(ausdruck_links.bekomme_fehler_text());
+        // mb.exec();
         return false;
     }
 
@@ -185,12 +193,13 @@ bool WennDannSonst::vergleich_ist_wahr(const QString text)
     if(!ausdruck_rechts.ist_fehlerhaft())
     {
         rechtsZahl = ausdruck_rechts.bekomme_Ergebnis_als_double();
-    }else
+    }
+    else
     {
         fehler_melden(ausdruck_rechts.bekomme_fehler_text());
-        //QMessageBox mb;
-        //mb.setText(ausdruck_rechts.bekomme_fehler_text());
-        //mb.exec();
+        // QMessageBox mb;
+        // mb.setText(ausdruck_rechts.bekomme_fehler_text());
+        // mb.exec();
         return false;
     }
 
@@ -199,7 +208,8 @@ bool WennDannSonst::vergleich_ist_wahr(const QString text)
         if(linksZahl < rechtsZahl)
         {
             return true;
-        }else
+        }
+        else
         {
             return false;
         }
@@ -209,7 +219,8 @@ bool WennDannSonst::vergleich_ist_wahr(const QString text)
         if(linksZahl > rechtsZahl)
         {
             return true;
-        }else
+        }
+        else
         {
             return false;
         }
@@ -219,7 +230,8 @@ bool WennDannSonst::vergleich_ist_wahr(const QString text)
         if(linksZahl <= rechtsZahl)
         {
             return true;
-        }else
+        }
+        else
         {
             return false;
         }
@@ -229,7 +241,8 @@ bool WennDannSonst::vergleich_ist_wahr(const QString text)
         if(linksZahl >= rechtsZahl)
         {
             return true;
-        }else
+        }
+        else
         {
             return false;
         }
@@ -239,7 +252,8 @@ bool WennDannSonst::vergleich_ist_wahr(const QString text)
         if(linksZahl == rechtsZahl)
         {
             return true;
-        }else
+        }
+        else
         {
             return false;
         }
@@ -249,7 +263,8 @@ bool WennDannSonst::vergleich_ist_wahr(const QString text)
         if(linksZahl != rechtsZahl)
         {
             return true;
-        }else
+        }
+        else
         {
             return false;
         }
@@ -259,24 +274,24 @@ bool WennDannSonst::vergleich_ist_wahr(const QString text)
 }
 
 bool WennDannSonst::ist_vergleich(const QString text)
-{//Funktion prüft ob ein Ausdruck ein einfacher Vergleich ist
+{ // Funktion prüft ob ein Ausdruck ein einfacher Vergleich ist
     fehler_nullen();
     int anz_operatoren = 0;
     int anz_verbindungszeichen = 0;
-    if( !ist_ziffer( text.at(0))  &&  text.at(0)!='+'  && text.at(0)!='-'  )
-    {//wenn der vergleich nicht mit einer Ziffer, nicht mit + und nicht mit -  beginnt
+    if(!ist_ziffer(text.at(0)) && text.at(0) != '+' && text.at(0) != '-')
+    { // wenn der vergleich nicht mit einer Ziffer, nicht mit + und nicht mit -  beginnt
         return false;
     }
-    for(int i = 0 ; i < text.count() ; i++)
+    for(int i = 0; i < text.count(); i++)
     {
-        if(  text.at(i) == '<'  ||  text.at(i) == '>'  || text.at(i) == '='  ||  text.at(i) == '!'  )
+        if(text.at(i) == '<' || text.at(i) == '>' || text.at(i) == '=' || text.at(i) == '!')
         {
-            if(  text.at(i-1)!= '<'  &&  text.at(i-1)!= '>'  &&  text.at(i-1)!= '='  &&  text.at(i-1)!= '!')
+            if(text.at(i - 1) != '<' && text.at(i - 1) != '>' && text.at(i - 1) != '=' && text.at(i - 1) != '!')
             {
                 anz_operatoren++;
             }
         }
-        if(  text.at(i)=='&'  ||  text.at(i)=='|'  )
+        if(text.at(i) == '&' || text.at(i) == '|')
         {
             anz_verbindungszeichen++;
         }
@@ -286,17 +301,18 @@ bool WennDannSonst::ist_vergleich(const QString text)
     op.setNum(anz_operatoren);
     QString ve;
     ve.setNum(anz_verbindungszeichen);
-    //QMessageBox mb;
-    //mb.setText("operatoren: " + op + " verb: " + ve);
-    //mb.exec();
+    // QMessageBox mb;
+    // mb.setText("operatoren: " + op + " verb: " + ve);
+    // mb.exec();
 
-    if(anz_verbindungszeichen == anz_operatoren-1)
+    if(anz_verbindungszeichen == anz_operatoren - 1)
     {
         if(anz_verbindungszeichen == 0)
-        {//Wenn es keine Vergleichskette ist
+        { // Wenn es keine Vergleichskette ist
             return true;
         }
-    }else if(  anz_operatoren!= 0  ||  anz_verbindungszeichen!=0  )
+    }
+    else if(anz_operatoren != 0 || anz_verbindungszeichen != 0)
     {
         fehler_melden("ungueltige Anzahl von Vergleichsoperatoren oder ungueltige Anzahl an Vergleichs-Verbindungsoperatoren");
     }
@@ -311,7 +327,7 @@ QString WennDannSonst::text_links(const QString text, const QString trenntext)
     }
     int beginn_Trenntext = text.indexOf(trenntext);
     QString return_string = "";
-    for(int i=0 ; i<beginn_Trenntext; i++)
+    for(int i = 0; i < beginn_Trenntext; i++)
     {
         return_string += text.at(i);
     }
@@ -324,9 +340,9 @@ QString WennDannSonst::text_rechts(const QString text, const QString trenntext)
     {
         return "";
     }
-    int ende_Trenntext = text.indexOf(trenntext)+trenntext.length();
+    int ende_Trenntext = text.indexOf(trenntext) + trenntext.length();
     QString return_string = "";
-    for(int i=ende_Trenntext ; i<text.count(); i++)
+    for(int i = ende_Trenntext; i < text.count(); i++)
     {
         return_string += text.at(i);
     }
@@ -342,7 +358,7 @@ bool WennDannSonst::vergleichskette_ist_wahr_nur_ODER(const QString text)
         QString links;
         links = text_links(tmp, "|");
 
-        if(  vergleich_ist_wahr(links)  )
+        if(vergleich_ist_wahr(links))
         {
             istWahr = true;
             break;
@@ -365,7 +381,8 @@ bool WennDannSonst::vergleichskette_ist_wahr(const QString text)
         if(text == "0")
         {
             return false;
-        }else
+        }
+        else
         {
             return true;
         }
@@ -378,7 +395,8 @@ bool WennDannSonst::vergleichskette_ist_wahr(const QString text)
         if(erg == "0")
         {
             return false;
-        }else
+        }
+        else
         {
             return true;
         }
@@ -389,11 +407,11 @@ bool WennDannSonst::vergleichskette_ist_wahr(const QString text)
         return vergleich_ist_wahr(text);
     }
 
-    if(  text.contains("|")  &&  !text.contains("&")) //Wenn text nur Oder-Verbindungen und keine Und-Verbindungen enthällt
+    if(text.contains("|") && !text.contains("&")) // Wenn text nur Oder-Verbindungen und keine Und-Verbindungen enthällt
     {
         istWahr = vergleichskette_ist_wahr_nur_ODER(text);
-
-    }else if (  text.contains("&")  &&  !text.contains("|")  ) //Wenn text Und-Verbindungen enthällt und keine ODER-Verbindungen
+    }
+    else if(text.contains("&") && !text.contains("|")) // Wenn text Und-Verbindungen enthällt und keine ODER-Verbindungen
     {
         QString tmp = text;
         while(tmp.contains("&"))
@@ -404,18 +422,20 @@ bool WennDannSonst::vergleichskette_ist_wahr(const QString text)
             if(vergleich_ist_wahr(links))
             {
                 istWahr = true;
-            }else
+            }
+            else
             {
                 return false;
             }
             tmp = text_rechts(tmp, "&");
 
             if(!tmp.contains("&"))
-            {// = in der letzten Runde
+            { // = in der letzten Runde
                 istWahr = vergleich_ist_wahr(tmp);
             }
         }
-    }else if (  text.contains("&")  &&  text.contains("|")  ) //Wenn text Und-Verbindungen enthällt und ODER-Verbindungen
+    }
+    else if(text.contains("&") && text.contains("|")) // Wenn text Und-Verbindungen enthällt und ODER-Verbindungen
     {
         QString tmp = text;
         while(tmp.contains("&"))
@@ -426,14 +446,15 @@ bool WennDannSonst::vergleichskette_ist_wahr(const QString text)
             if(vergleichskette_ist_wahr_nur_ODER(links))
             {
                 istWahr = true;
-            }else
+            }
+            else
             {
                 return false;
             }
             tmp = text_rechts(tmp, "&");
 
             if(!tmp.contains("&"))
-            {// = in der letzten Runde
+            { // = in der letzten Runde
                 istWahr = vergleichskette_ist_wahr_nur_ODER(tmp);
             }
         }
@@ -463,7 +484,8 @@ QString WennDannSonst::weDaSo(const QString text)
     {
         Formel f(dann);
         returnString = f.bekomme_Ergebnis_als_String();
-    }else
+    }
+    else
     {
         Formel f(sonst);
         returnString = f.bekomme_Ergebnis_als_String();
@@ -487,18 +509,21 @@ double WennDannSonst::ergebnis_berechnen(QString formelText)
         if(mitte.contains("?"))
         {
             mitte = weDaSo(mitte);
-        }else
+        }
+        else
         {
             Formel f(mitte);
             if(!f.ist_fehlerhaft())
             {
                 mitte = f.bekomme_Ergebnis_als_String();
-            }else
+            }
+            else
             {
                 if(ist_vergleich(mitte))
                 {
                     weDaSo(mitte);
-                }else
+                }
+                else
                 {
                     fehler_melden("Hier Fehler");
                 }
@@ -509,7 +534,8 @@ double WennDannSonst::ergebnis_berechnen(QString formelText)
     if(formelText.contains("?"))
     {
         formelText = weDaSo(formelText);
-    }else
+    }
+    else
     {
         Formel f(formelText);
         formelText = f.bekomme_Ergebnis_als_String();

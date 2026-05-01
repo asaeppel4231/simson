@@ -1,9 +1,8 @@
 #include "dialog_bohrer.h"
+
 #include "ui_dialog_bohrer.h"
 
-Dialog_bohrer::Dialog_bohrer(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_bohrer)
+Dialog_bohrer::Dialog_bohrer(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_bohrer)
 {
     ui->setupUi(this);
 }
@@ -67,43 +66,50 @@ void Dialog_bohrer::on_pushButton_ok_clicked()
         mb.setText("Bitte zuerst einen Import-Durchmesser eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_dm_real->text().isEmpty())
+    }
+    else if(ui->lineEdit_dm_real->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst einen Export-Durchmesser eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_nutzlaenge->text().isEmpty())
+    }
+    else if(ui->lineEdit_nutzlaenge->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst eine Nutzlänge eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_zustmasshori->text().isEmpty())
+    }
+    else if(ui->lineEdit_zustmasshori->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst eine horizontales Zustellmaß eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_zustmassvert->text().isEmpty())
+    }
+    else if(ui->lineEdit_zustmassvert->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst eine vertikales Zustellmaß eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_vorschub->text().isEmpty())
+    }
+    else if(ui->lineEdit_vorschub->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst den Vorschub eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(berechnen(ui->lineEdit_vorschub->text()).toDouble() <= 0)
+    }
+    else if(berechnen(ui->lineEdit_vorschub->text()).toDouble() <= 0)
     {
         QMessageBox mb;
         mb.setText("Der Vorschub muss größer als 0 sein");
         mb.setWindowTitle("Daten fehlerhaft");
         mb.exec();
-    }else
+    }
+    else
     {
         this->hide();
         wkz_bohrer bohrer;
@@ -121,5 +127,4 @@ void Dialog_bohrer::on_pushButton_ok_clicked()
 
         emit Data(bohrer.daten(), Wkz_ist_neu);
     }
-
 }

@@ -1,9 +1,8 @@
 #include "dialog_bearb_halt.h"
+
 #include "ui_dialog_bearb_halt.h"
 
-Dialog_bearb_halt::Dialog_bearb_halt(QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::Dialog_bearb_halt)
+Dialog_bearb_halt::Dialog_bearb_halt(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_bearb_halt)
 {
     ui->setupUi(this);
     this->setWindowTitle("NC-Halt");
@@ -31,9 +30,7 @@ void Dialog_bearb_halt::on_btn_ok_clicked()
     this->close();
 }
 
-
 void Dialog_bearb_halt::on_btn_abbrechen_clicked()
 {
     this->close();
 }
-

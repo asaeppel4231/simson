@@ -2,25 +2,25 @@
 
 einstellung_dxf_klassen::einstellung_dxf_klassen()
 {
-    Wst             = "Werkstk";
-    BohrVert        = "V_Bohr";
-    BohrHori        = "H_Bohr";
-    NutVert         = "V_Saeg";
-    FraesVert       = "V_Fraes";
-    Kta             = "Tasche";
-    Rta             = "Tasche";
-    Rta             = "Zapfen";
+    Wst = "Werkstk";
+    BohrVert = "V_Bohr";
+    BohrHori = "H_Bohr";
+    NutVert = "V_Saeg";
+    FraesVert = "V_Fraes";
+    Kta = "Tasche";
+    Rta = "Tasche";
+    Rta = "Zapfen";
 }
 
 //--------------------------set_xy():
 void einstellung_dxf_klassen::set_text(QString t)
 {
     text_zw tz;
-    tz.set_text(t,'\n');
-    for(uint i=0;i<tz.count();i++)
+    tz.set_text(t, '\n');
+    for(uint i = 0; i < tz.count(); i++)
     {
         text_zw spalten;
-        spalten.set_text(tz.at(i),'\t');
+        spalten.set_text(tz.at(i), '\t');
         if(spalten.at(0) == "Wertkstueckklasse:")
         {
             set_wst(spalten.at(1));
@@ -170,36 +170,26 @@ QString einstellung_dxf_klassen::fraes_vert()
 }
 
 //-------------------Funktionen nicht innerhalb der Klasse:
-bool operator ==(einstellung_dxf_klassen e1, einstellung_dxf_klassen e2)
+bool operator==(einstellung_dxf_klassen e1, einstellung_dxf_klassen e2)
 {
-    if(e1.wst() == e2.wst() &&\
-       e1.bohr_vert() == e2.bohr_vert()&&\
-       e1.bohr_hori() == e2.bohr_hori()&&\
-       e1.nut_vert() == e2.nut_vert()&&\
-       e1.kta() == e2.kta()&&\
-       e1.rta() == e2.rta()&&\
-       e1.zapfen() == e2.zapfen()&&\
-       e1.fraes_vert() == e2.fraes_vert())
+    if(e1.wst() == e2.wst() && e1.bohr_vert() == e2.bohr_vert() && e1.bohr_hori() == e2.bohr_hori() && e1.nut_vert() == e2.nut_vert() &&
+       e1.kta() == e2.kta() && e1.rta() == e2.rta() && e1.zapfen() == e2.zapfen() && e1.fraes_vert() == e2.fraes_vert())
     {
         return true;
-    }else
+    }
+    else
     {
         return false;
     }
 }
-bool operator !=(einstellung_dxf_klassen e1, einstellung_dxf_klassen e2)
+bool operator!=(einstellung_dxf_klassen e1, einstellung_dxf_klassen e2)
 {
-    if(e1.wst() == e2.wst() &&\
-       e1.bohr_vert() == e2.bohr_vert()&&\
-       e1.bohr_hori() == e2.bohr_hori()&&\
-       e1.nut_vert() == e2.nut_vert()&&\
-       e1.kta() == e2.kta()&&\
-       e1.rta() == e2.rta()&&\
-       e1.zapfen() == e2.zapfen()&&\
-       e1.fraes_vert() == e2.fraes_vert())
+    if(e1.wst() == e2.wst() && e1.bohr_vert() == e2.bohr_vert() && e1.bohr_hori() == e2.bohr_hori() && e1.nut_vert() == e2.nut_vert() &&
+       e1.kta() == e2.kta() && e1.rta() == e2.rta() && e1.zapfen() == e2.zapfen() && e1.fraes_vert() == e2.fraes_vert())
     {
         return false;
-    }else
+    }
+    else
     {
         return true;
     }

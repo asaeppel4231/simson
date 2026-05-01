@@ -1,19 +1,18 @@
 #include "dialog_bearb_nut.h"
+
 #include "ui_dialog_bearb_nut.h"
 
-Dialog_bearb_nut::Dialog_bearb_nut(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_bearb_nut)
+Dialog_bearb_nut::Dialog_bearb_nut(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_bearb_nut)
 {
     ui->setupUi(this);
     Wst = nullptr;
     this->setWindowTitle("Nut");
-    ui->comboBox_bezug->addItem("Oberseite");   //0
-    ui->comboBox_bezug->addItem("Unterseite");  //1
-    ui->comboBox_bezug->addItem("Links");       //2
-    ui->comboBox_bezug->addItem("Rechts");      //3
-    ui->comboBox_bezug->addItem("Vorne");       //4
-    ui->comboBox_bezug->addItem("Hinten");      //5
+    ui->comboBox_bezug->addItem("Oberseite");  // 0
+    ui->comboBox_bezug->addItem("Unterseite"); // 1
+    ui->comboBox_bezug->addItem("Links");      // 2
+    ui->comboBox_bezug->addItem("Rechts");     // 3
+    ui->comboBox_bezug->addItem("Vorne");      // 4
+    ui->comboBox_bezug->addItem("Hinten");     // 5
     ui->btn_ok->setFocus();
 }
 
@@ -22,7 +21,7 @@ Dialog_bearb_nut::~Dialog_bearb_nut()
     delete ui;
 }
 
-void Dialog_bearb_nut::set_data(QString d, werkstueck *w)
+void Dialog_bearb_nut::set_data(QString d, werkstueck* w)
 {
     Wst = w;
     nut nu;
@@ -36,23 +35,28 @@ void Dialog_bearb_nut::set_data(QString d, werkstueck *w)
     ui->lineEdit_ye->setText(nu.ye_qstring());
     ui->lineEdit_ze->setText(nu.ze_qstring());
     //---------
-    //Bezug:
+    // Bezug:
     if(nu.bezug() == WST_BEZUG_OBSEI)
     {
         ui->comboBox_bezug->setCurrentIndex(0);
-    }else if(nu.bezug() == WST_BEZUG_UNSEI)
+    }
+    else if(nu.bezug() == WST_BEZUG_UNSEI)
     {
         ui->comboBox_bezug->setCurrentIndex(1);
-    }else if(nu.bezug() == WST_BEZUG_LI)
+    }
+    else if(nu.bezug() == WST_BEZUG_LI)
     {
         ui->comboBox_bezug->setCurrentIndex(2);
-    }else if(nu.bezug() == WST_BEZUG_RE)
+    }
+    else if(nu.bezug() == WST_BEZUG_RE)
     {
         ui->comboBox_bezug->setCurrentIndex(3);
-    }else if(nu.bezug() == WST_BEZUG_VO)
+    }
+    else if(nu.bezug() == WST_BEZUG_VO)
     {
         ui->comboBox_bezug->setCurrentIndex(4);
-    }else if(nu.bezug() == WST_BEZUG_HI)
+    }
+    else if(nu.bezug() == WST_BEZUG_HI)
     {
         ui->comboBox_bezug->setCurrentIndex(5);
     }
@@ -69,7 +73,8 @@ QString Dialog_bearb_nut::var_zu_wert(QString term)
         term.replace("B", Wst->breite_qstring());
         term.replace("D", Wst->dicke_qstring());
         term = berechnen(term);
-    }else
+    }
+    else
     {
         berechnen(term);
     }
@@ -91,19 +96,24 @@ void Dialog_bearb_nut::on_btn_ok_clicked()
     if(bezug == "Oberseite")
     {
         nu.set_bezug(WST_BEZUG_OBSEI);
-    }else if(bezug == "Unterseite")
+    }
+    else if(bezug == "Unterseite")
     {
         nu.set_bezug(WST_BEZUG_UNSEI);
-    }else if(bezug == "Links")
+    }
+    else if(bezug == "Links")
     {
         nu.set_bezug(WST_BEZUG_LI);
-    }else if(bezug == "Rechts")
+    }
+    else if(bezug == "Rechts")
     {
         nu.set_bezug(WST_BEZUG_RE);
-    }else if(bezug == "Vorne")
+    }
+    else if(bezug == "Vorne")
     {
         nu.set_bezug(WST_BEZUG_VO);
-    }else if(bezug == "Hinten")
+    }
+    else if(bezug == "Hinten")
     {
         nu.set_bezug(WST_BEZUG_HI);
     }

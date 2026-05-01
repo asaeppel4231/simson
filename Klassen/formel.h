@@ -5,7 +5,7 @@
 
 class Formel
 {
-public:
+  public:
     Formel();
     Formel(QString formel);
     double bekomme_Ergebnis_als_double();
@@ -13,7 +13,7 @@ public:
     bool ist_fehlerhaft();
     QString bekomme_fehler_text();
 
-protected:
+  protected:
     void formelText_setzen(QString text);
     QString formelText_bekommen();
     double ergebnis_berechnen(QString formelText);
@@ -30,7 +30,7 @@ protected:
     bool ist_einfache_Berechnung(const QString text);
     bool ist_ohne_ungueltige_Zeichen(const QChar zeichen);
     bool ist_ohne_ungueltige_Zeichen(const QString text);
-    bool ist_ohne_ungueltige_Klammernhaelften(const  QString text);
+    bool ist_ohne_ungueltige_Klammernhaelften(const QString text);
     bool ist_ohne_ungueltige_Kommas(QString text);
     bool ist_ohne_ungueltige_Rechenzeichen(const QString text);
     double zahl_aus_string(QString text);
@@ -49,13 +49,9 @@ protected:
     QString Klammern_aufloesen_text_rechts(const QString text);
     QString leerzeichen_entfernen(QString text);
 
-
-
-private:
-
-
-    //Variablen:
-    //QString formelAlsString;
+  private:
+    // Variablen:
+    // QString formelAlsString;
     QString FormelText;
     double ergebnis;
     bool istFehlerhaft;

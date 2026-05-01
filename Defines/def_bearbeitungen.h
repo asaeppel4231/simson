@@ -1,24 +1,22 @@
 #ifndef DEF_BEARBEITUNGEN_H
 #define DEF_BEARBEITUNGEN_H
 
+#define WST_BEZUG_OBSEI "bezug_obsei" // Bezugsfläche Wst-Oberseite
+#define WST_BEZUG_UNSEI "bezug_unsei" // Bezugsfläche Wst-Unterseite
+// der Programminterne WST-Nullpunkt ist links-unten
+#define WST_BEZUG_LI "bezug_li" // Bezugsfläche Wst-Schmalfläche links (Westen)
+#define WST_BEZUG_RE "bezug_re" // Bezugsfläche Wst-Schmalfläche rechts (Osten)
+#define WST_BEZUG_VO "bezug_vo" // Bezugsfläche Wst-Schmalfläche vorne (Süden)
+#define WST_BEZUG_HI "bezug_hi" // Bezugsfläche Wst-Schmalfläche hinten (Norden)
 
-#define WST_BEZUG_OBSEI     "bezug_obsei"     //Bezugsfläche Wst-Oberseite
-#define WST_BEZUG_UNSEI     "bezug_unsei"     //Bezugsfläche Wst-Unterseite
-//der Programminterne WST-Nullpunkt ist links-unten
-#define WST_BEZUG_LI        "bezug_li"        //Bezugsfläche Wst-Schmalfläche links (Westen)
-#define WST_BEZUG_RE        "bezug_re"        //Bezugsfläche Wst-Schmalfläche rechts (Osten)
-#define WST_BEZUG_VO        "bezug_vo"        //Bezugsfläche Wst-Schmalfläche vorne (Süden)
-#define WST_BEZUG_HI        "bezug_hi"        //Bezugsfläche Wst-Schmalfläche hinten (Norden)
-
-#define TRENNZ_BEARB_PARAM  '\t'             //Trennzeichen zur Trennung der einzelnen Parameter einer Bearbeitung
+#define TRENNZ_BEARB_PARAM  '\t' // Trennzeichen zur Trennung der einzelnen Parameter einer Bearbeitung
 #define TRENNZ_BEARB_PARAM_ "\t"
 
-#define RASTERRICHTUNG_0_BIS_L  "0_bis_L"
-#define RASTERRICHTUNG_0_BIS_B  "0_bis_B"
-#define RASTERRICHTUNG_0_BIS_D  "0_bis_D"
+#define RASTERRICHTUNG_0_BIS_L "0_bis_L"
+#define RASTERRICHTUNG_0_BIS_B "0_bis_B"
+#define RASTERRICHTUNG_0_BIS_D "0_bis_D"
 
-
-#define BEARBART_BOHR       "bohrung"       //Bearbeitungsart Bohrung
+#define BEARBART_BOHR "bohrung" // Bearbeitungsart Bohrung
 /*
     Reihenfolge der Parameter:
     0 : Bearbeitungsart: "bohrung"
@@ -33,7 +31,7 @@
     9: WKZ-Nummer           //optionaler Parameter, für dierekte Fräserzuweisung KTA
 */
 
-#define BEARBART_BOHRRASTER "borast"    //Bearbeitungsart Bohrraster
+#define BEARBART_BOHRRASTER "borast" // Bearbeitungsart Bohrraster
 /*
     Reihenfolge der Parameter:
     0 : Bearbeitungsart: "bohrraster"
@@ -54,7 +52,7 @@
     15: Rastermaß in Z
 */
 
-#define BEARBART_RTA        "rechtecktasche"    //Bearbeitungsart Rechtecktasche und Stulpfräsung
+#define BEARBART_RTA "rechtecktasche" // Bearbeitungsart Rechtecktasche und Stulpfräsung
 /*
     Reihenfolge der Parameter:
     0 : Bearbeitungsart: "rechtecktasche"
@@ -73,7 +71,7 @@
     13: WKZ-Nummer             //optionaler Parameter, für dierekte Fräserzuweisung RTA
 */
 
-#define BEARBART_NUT        "nut"    //Bearbeitungsart Nut
+#define BEARBART_NUT "nut" // Bearbeitungsart Nut
 /*
     Reihenfolge der Parameter:
     0 : Bearbeitungsart: "nut"
@@ -87,7 +85,7 @@
     8 : Ausführbedingung
 */
 
-#define BEARBART_FRAESERAUFRUF  "fraufr"    //Bearbeitungsart Fräser-Aufruf
+#define BEARBART_FRAESERAUFRUF "fraufr" // Bearbeitungsart Fräser-Aufruf
 /*
     Reihenfolge der Parameter:
     0 : Bearbeitungsart: "fraufr"
@@ -101,12 +99,12 @@
     8 : Ausführbedingung
 */
 
-//Fräser-Radius-Korrektur:
-#define FRKOR_L     "L"
-#define FRKOR_M     "M"
-#define FRKOR_R     "R"
+// Fräser-Radius-Korrektur:
+#define FRKOR_L "L"
+#define FRKOR_M "M"
+#define FRKOR_R "R"
 
-#define BEARBART_FRAESERGERADE  "frgradv"    //Bearbeitungsart Fräser-Gerade für vertikale Fräser
+#define BEARBART_FRAESERGERADE "frgradv" // Bearbeitungsart Fräser-Gerade für vertikale Fräser
 /*
     Reihenfolge der Parameter:
     0 : Bearbeitungsart: "frgrad"
@@ -120,7 +118,7 @@
     8 : Ausführbedingung
 */
 
-#define BEARBART_FRAESERBOGEN  "frbogv"    //Bearbeitungsart Fräser-Bogen für vertikale Fräser
+#define BEARBART_FRAESERBOGEN "frbogv" // Bearbeitungsart Fräser-Bogen für vertikale Fräser
 /*
     Reihenfolge der Parameter:
     0 : Bearbeitungsart: "frbog"
@@ -135,7 +133,7 @@
     9 : Ausführbedingung
 */
 
-#define BEARBART_GEHRUNG       "gehrung"       //Bearbeitungsart Gehrung
+#define BEARBART_GEHRUNG "gehrung" // Bearbeitungsart Gehrung
 /*
     Reihenfolge der Parameter:
     0 : Bearbeitungsart: "gehrung"
@@ -151,7 +149,7 @@
     10: Schnitt-Tiefe
 */
 
-#define BEARBART_KOMMENTAR       "prgkom"       //Bearbeitungsart Kommentar
+#define BEARBART_KOMMENTAR "prgkom" // Bearbeitungsart Kommentar
 /*
     Reihenfolge der Parameter:
     0 : Bearbeitungsart: "prgkom"
@@ -159,7 +157,7 @@
     2 : Ausführbedingung
 */
 
-#define BEARBART_GEZUPU       "gezupu"       //Bearbeitungsart gehe zu Punkt
+#define BEARBART_GEZUPU "gezupu" // Bearbeitungsart gehe zu Punkt
 /*
     Reihenfolge der Parameter:
     0 : Bearbeitungsart: "gezupu"
@@ -169,19 +167,11 @@
     4 : Ausführbedingung
 */
 
-#define BEARBART_HALT       "prghalt"       //Bearbeitungsart Programm-Halt
+#define BEARBART_HALT "prghalt" // Bearbeitungsart Programm-Halt
 /*
     Reihenfolge der Parameter:
     0 : Bearbeitungsart: "prghalt"
     1 : Ausführbedingung
 */
-
-
-
-
-
-
-
-
 
 #endif // DEF_BEARBEITUNGEN_H

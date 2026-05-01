@@ -1,9 +1,8 @@
 #include "dialog_fraeser.h"
+
 #include "ui_dialog_fraeser.h"
 
-Dialog_fraeser::Dialog_fraeser(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_fraeser)
+Dialog_fraeser::Dialog_fraeser(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_fraeser)
 {
     ui->setupUi(this);
 }
@@ -71,31 +70,36 @@ void Dialog_fraeser::on_pushButton_ok_clicked()
         mb.setText("Bitte zuerst eine Fräsernummer eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_alias->text().isEmpty())
+    }
+    else if(ui->lineEdit_alias->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst einen Alias-Namen eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_dm->text().isEmpty())
+    }
+    else if(ui->lineEdit_dm->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst einen Durchmesser eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_nutzl->text().isEmpty())
+    }
+    else if(ui->lineEdit_nutzl->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst eine Nutzlänge eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_voers->text().isEmpty())
+    }
+    else if(ui->lineEdit_voers->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst einen Vorschub eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_zust_min->text().isEmpty())
+    }
+    else if(ui->lineEdit_zust_min->text().isEmpty())
     {
         QString msg;
         msg += "Bitte zuerst eine Mindeststzustellung eintragen!\n";
@@ -104,19 +108,22 @@ void Dialog_fraeser::on_pushButton_ok_clicked()
         mb.setText(msg);
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_zustmasshori->text().isEmpty())
+    }
+    else if(ui->lineEdit_zustmasshori->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst eine horizontales Zustellmaß eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else if(ui->lineEdit_zustmassvert->text().isEmpty())
+    }
+    else if(ui->lineEdit_zustmassvert->text().isEmpty())
     {
         QMessageBox mb;
         mb.setText("Bitte zuerst eine vertikales Zustellmaß eintragen!");
         mb.setWindowTitle("Daten unvollständig");
         mb.exec();
-    }else
+    }
+    else
     {
         this->hide();
         wkz_fraeser fraeser;

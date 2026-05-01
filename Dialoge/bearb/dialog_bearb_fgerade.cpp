@@ -1,17 +1,16 @@
 #include "dialog_bearb_fgerade.h"
+
 #include "ui_dialog_bearb_fgerade.h"
 
-Dialog_bearb_fgerade::Dialog_bearb_fgerade(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_bearb_fgerade)
+Dialog_bearb_fgerade::Dialog_bearb_fgerade(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_bearb_fgerade)
 {
     ui->setupUi(this);
     Wst = nullptr;
     this->setWindowTitle("Gerade Fräsen");
     ui->lineEdit_zs->setEnabled(false);
     ui->lineEdit_ze->setEnabled(false);
-    ui->comboBox_bezug->addItem("Oberseite");   //0
-    ui->comboBox_bezug->addItem("Unterseite");  //1
+    ui->comboBox_bezug->addItem("Oberseite");  // 0
+    ui->comboBox_bezug->addItem("Unterseite"); // 1
     ui->btn_ok->setFocus();
 }
 
@@ -20,7 +19,7 @@ Dialog_bearb_fgerade::~Dialog_bearb_fgerade()
     delete ui;
 }
 
-void Dialog_bearb_fgerade::set_data(QString d, werkstueck *w)
+void Dialog_bearb_fgerade::set_data(QString d, werkstueck* w)
 {
     Wst = w;
     fraesergerade fg;
@@ -34,11 +33,12 @@ void Dialog_bearb_fgerade::set_data(QString d, werkstueck *w)
     ui->lineEdit_tiSta->setText(fg.tiSta_qstring());
     ui->lineEdit_tiEnd->setText(fg.tiEnd_qstring());
     //---------
-    //Bezug:
+    // Bezug:
     if(fg.bezug() == WST_BEZUG_OBSEI)
     {
         ui->comboBox_bezug->setCurrentIndex(0);
-    }else if(fg.bezug() == WST_BEZUG_UNSEI)
+    }
+    else if(fg.bezug() == WST_BEZUG_UNSEI)
     {
         ui->comboBox_bezug->setCurrentIndex(1);
     }
@@ -55,7 +55,8 @@ QString Dialog_bearb_fgerade::var_zu_wert(QString term)
         term.replace("B", Wst->breite_qstring());
         term.replace("D", Wst->dicke_qstring());
         term = berechnen(term);
-    }else
+    }
+    else
     {
         berechnen(term);
     }
@@ -77,7 +78,8 @@ void Dialog_bearb_fgerade::on_btn_ok_clicked()
     if(bezug == "Oberseite")
     {
         fg.set_bezug(WST_BEZUG_OBSEI);
-    }else if(bezug == "Unterseite")
+    }
+    else if(bezug == "Unterseite")
     {
         fg.set_bezug(WST_BEZUG_UNSEI);
     }
@@ -92,7 +94,7 @@ void Dialog_bearb_fgerade::on_btn_abbrechen_clicked()
     this->close();
 }
 
-void Dialog_bearb_fgerade::showEvent(QShowEvent *event)
+void Dialog_bearb_fgerade::showEvent(QShowEvent* event)
 {
     QDialog::showEvent(event); // Basisklasse aufrufen nicht vergessen!
 
@@ -132,4 +134,3 @@ void Dialog_bearb_fgerade::on_lineEdit_ye_editingFinished()
 {
     aktualisiere_infofelder();
 }
-

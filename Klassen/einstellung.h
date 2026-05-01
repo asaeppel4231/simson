@@ -2,15 +2,16 @@
 #define EINSTELLUNG_H
 
 #include <QString>
-#include "text_zw.h"
+
 #include "Funktionen/umwandeln.h"
+#include "text_zw.h"
 
 class einstellung
 {
-public:
+  public:
     einstellung();
 
-    //set:
+    // set:
     void set_text(QString t);
     void set_entwicklermodus(bool ja);
     void set_entwicklermodus(QString jn);
@@ -19,7 +20,7 @@ public:
     void set_verzeichnis_ziel_lokal(QString v);
     void set_verzeichnis_zuletzt_geoefnet(QString v);
 
-    //get:    
+    // get:
     QString text();
     bool entwicklermodus();
     QString verzeichnis_quelle();
@@ -27,13 +28,12 @@ public:
     QString verzeichnis_ziel_lokal();
     QString verzeichnis_zuletzt_geoefnet();
 
-private:
+  private:
     bool Entwicklermodus;
     QString Verzeichnis_quelle;
     QString Verzeichnis_ziel_server;
     QString Verzeichnis_ziel_lokal;
     QString Verzeichnis_zuletzt_geoefnet;
-
 };
 
 #endif // EINSTELLUNG_H

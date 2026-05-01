@@ -1,9 +1,8 @@
 #include "dialog_bearb_gezupu.h"
+
 #include "ui_dialog_bearb_gezupu.h"
 
-Dialog_bearb_gezupu::Dialog_bearb_gezupu(QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::Dialog_bearb_gezupu)
+Dialog_bearb_gezupu::Dialog_bearb_gezupu(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_bearb_gezupu)
 {
     ui->setupUi(this);
     Wst = nullptr;
@@ -15,7 +14,7 @@ Dialog_bearb_gezupu::~Dialog_bearb_gezupu()
     delete ui;
 }
 
-void Dialog_bearb_gezupu::set_data(QString d, werkstueck *w)
+void Dialog_bearb_gezupu::set_data(QString d, werkstueck* w)
 {
     Wst = w;
     gehezupunkt gzp;
@@ -35,7 +34,8 @@ QString Dialog_bearb_gezupu::var_zu_wert(QString term)
         term.replace("B", Wst->breite_qstring());
         term.replace("D", Wst->dicke_qstring());
         term = berechnen(term);
-    }else
+    }
+    else
     {
         berechnen(term);
     }
@@ -58,4 +58,3 @@ void Dialog_bearb_gezupu::on_btn_abbrechen_clicked()
 {
     this->close();
 }
-

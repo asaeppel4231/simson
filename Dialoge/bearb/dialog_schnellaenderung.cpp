@@ -1,9 +1,8 @@
 #include "dialog_schnellaenderung.h"
+
 #include "ui_dialog_schnellaenderung.h"
 
-Dialog_schnellaenderung::Dialog_schnellaenderung(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_schnellaenderung)
+Dialog_schnellaenderung::Dialog_schnellaenderung(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_schnellaenderung)
 {
     ui->setupUi(this);
     Startzeile = 0;
@@ -31,15 +30,14 @@ Dialog_schnellaenderung::~Dialog_schnellaenderung()
     delete ui;
 }
 
-void Dialog_schnellaenderung::set_Data(werkstueck *w, uint start, uint menge)
+void Dialog_schnellaenderung::set_Data(werkstueck* w, uint start, uint menge)
 {
     Wst = w;
     Startzeile = start;
     Menge = menge;
     Dialoge.set_text("ALLE", '\n');
 
-
-    for(uint i = start; i <= start+menge-1; i++)
+    for(uint i = start; i <= start + menge - 1; i++)
     {
         QString programmzeile = Wst->bearb().at(i);
         if(programmzeile.contains(BEARBART_BOHR))
@@ -48,19 +46,22 @@ void Dialog_schnellaenderung::set_Data(werkstueck *w, uint start, uint menge)
             {
                 Dialoge.add_hi("Bohrungen");
             }
-        }else if(programmzeile.contains(BEARBART_NUT))
+        }
+        else if(programmzeile.contains(BEARBART_NUT))
         {
             if(!Dialoge.text().contains("Nuten"))
             {
                 Dialoge.add_hi("Nuten");
             }
-        }else if(programmzeile.contains(BEARBART_RTA))
+        }
+        else if(programmzeile.contains(BEARBART_RTA))
         {
             if(!Dialoge.text().contains("Rechteckstaschen"))
             {
                 Dialoge.add_hi("Rechteckstaschen");
             }
-        }else if(programmzeile.contains(BEARBART_FRAESERAUFRUF))
+        }
+        else if(programmzeile.contains(BEARBART_FRAESERAUFRUF))
         {
             if(!Dialoge.text().contains("Fräseraufrufe"))
             {
@@ -70,7 +71,7 @@ void Dialog_schnellaenderung::set_Data(werkstueck *w, uint start, uint menge)
     }
 
     ui->comboBox_dlg->clear();
-    for(uint i = 0; i < Dialoge.count() ;i++)
+    for(uint i = 0; i < Dialoge.count(); i++)
     {
         ui->comboBox_dlg->addItem(Dialoge.at(i));
     }
@@ -84,31 +85,35 @@ void Dialog_schnellaenderung::on_comboBox_dlg_currentIndexChanged(int index)
     ui->comboBox_param->clear();
     if(arg1 == "ALLE")
     {
-        for(uint i = 0; i < Param_alle.count() ;i++)
+        for(uint i = 0; i < Param_alle.count(); i++)
         {
             ui->comboBox_param->addItem(Param_alle.at(i));
         }
-    }else if(arg1 == "Bohrungen")
+    }
+    else if(arg1 == "Bohrungen")
     {
-        for(uint i = 0; i < Param_bohr.count() ;i++)
+        for(uint i = 0; i < Param_bohr.count(); i++)
         {
             ui->comboBox_param->addItem(Param_bohr.at(i));
         }
-    }else if(arg1 == "Nuten")
+    }
+    else if(arg1 == "Nuten")
     {
-        for(uint i = 0; i < Param_nut.count() ;i++)
+        for(uint i = 0; i < Param_nut.count(); i++)
         {
             ui->comboBox_param->addItem(Param_nut.at(i));
         }
-    }else if(arg1 == "Rechteckstaschen")
+    }
+    else if(arg1 == "Rechteckstaschen")
     {
-        for(uint i = 0; i < Param_rta.count() ;i++)
+        for(uint i = 0; i < Param_rta.count(); i++)
         {
             ui->comboBox_param->addItem(Param_rta.at(i));
         }
-    }else if(arg1 == "Fräseraufrufe")
+    }
+    else if(arg1 == "Fräseraufrufe")
     {
-        for(uint i = 0; i < Param_fauf.count() ;i++)
+        for(uint i = 0; i < Param_fauf.count(); i++)
         {
             ui->comboBox_param->addItem(Param_fauf.at(i));
         }
@@ -126,7 +131,8 @@ void Dialog_schnellaenderung::on_comboBox_alt_currentIndexChanged(int index)
     if(arg1 == "ALLE")
     {
         ui->lineEdit_neu->clear();
-    }else
+    }
+    else
     {
         ui->lineEdit_neu->setText(arg1);
     }
@@ -145,7 +151,7 @@ void Dialog_schnellaenderung::on_pushButton_werte_aendern_clicked()
         {
             if(par == "Ausführbedingung")
             {
-                for(uint i = Startzeile; i <= Startzeile+Menge-1; i++)
+                for(uint i = Startzeile; i <= Startzeile + Menge - 1; i++)
                 {
                     QString programmzeile = Wst->bearb().at(i);
                     QString parname = "AFB=";
@@ -154,25 +160,27 @@ void Dialog_schnellaenderung::on_pushButton_werte_aendern_clicked()
                     {
                         bohrung bo(programmzeile);
                         wert = bo.afb();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             bo.set_afb(wert_neu);
                             Wst->bearb_ptr()->edit(i, bo.text());
                         }
-                    }else if(programmzeile.contains(BEARBART_RTA))
+                    }
+                    else if(programmzeile.contains(BEARBART_RTA))
                     {
                         rechtecktasche rta(programmzeile);
                         wert = rta.afb();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             rta.set_afb(wert_neu);
                             Wst->bearb_ptr()->edit(i, rta.text());
                         }
-                    }else if(programmzeile.contains(BEARBART_NUT))
+                    }
+                    else if(programmzeile.contains(BEARBART_NUT))
                     {
                         nut n(programmzeile);
                         wert = n.afb();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             n.set_afb(wert_neu);
                             Wst->bearb_ptr()->edit(i, n.text());
@@ -180,35 +188,38 @@ void Dialog_schnellaenderung::on_pushButton_werte_aendern_clicked()
                     }
                 }
             }
-        }else if(ui->comboBox_dlg->currentText() == "Bohrungen")
+        }
+        else if(ui->comboBox_dlg->currentText() == "Bohrungen")
         {
-            for(uint i = Startzeile; i <= Startzeile+Menge-1; i++)
+            for(uint i = Startzeile; i <= Startzeile + Menge - 1; i++)
             {
                 QString programmzeile = Wst->bearb().at(i);
                 if(programmzeile.contains(BEARBART_BOHR))
                 {
                     bohrung bo(programmzeile);
-                    QString wert;// = selektiereEintrag(programmzeile, parname, ENDPAR);
+                    QString wert; // = selektiereEintrag(programmzeile, parname, ENDPAR);
                     if(par == "Ausführbedingung")
                     {
                         wert = bo.afb();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             bo.set_afb(wert_neu);
                             Wst->bearb_ptr()->edit(i, bo.text());
                         }
-                    }else if(par == "Durchmesser")
+                    }
+                    else if(par == "Durchmesser")
                     {
                         wert = bo.dm_qstring();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             bo.set_dm(wert_neu);
                             Wst->bearb_ptr()->edit(i, bo.text());
                         }
-                    }else if(par == "Tiefe")
+                    }
+                    else if(par == "Tiefe")
                     {
                         wert = bo.tiefe_qstring();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             bo.set_tiefe(wert_neu);
                             Wst->bearb_ptr()->edit(i, bo.text());
@@ -216,9 +227,10 @@ void Dialog_schnellaenderung::on_pushButton_werte_aendern_clicked()
                     }
                 }
             }
-        }else if(ui->comboBox_dlg->currentText() == "Nuten")
+        }
+        else if(ui->comboBox_dlg->currentText() == "Nuten")
         {
-            for(uint i = Startzeile; i <= Startzeile+Menge-1; i++)
+            for(uint i = Startzeile; i <= Startzeile + Menge - 1; i++)
             {
                 QString programmzeile = Wst->bearb().at(i);
                 if(programmzeile.contains(BEARBART_NUT))
@@ -228,23 +240,25 @@ void Dialog_schnellaenderung::on_pushButton_werte_aendern_clicked()
                     if(par == "Ausführbedingung")
                     {
                         wert = n.afb();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             n.set_afb(wert_neu);
                             Wst->bearb_ptr()->edit(i, n.text());
                         }
-                    }else if(par == "Breite")
+                    }
+                    else if(par == "Breite")
                     {
                         wert = n.breite_qstring();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             n.set_breite(wert_neu);
                             Wst->bearb_ptr()->edit(i, n.text());
                         }
-                    }else if(par == "Tiefe")
+                    }
+                    else if(par == "Tiefe")
                     {
                         wert = n.tiefe_qstring();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             n.set_tiefe(wert_neu);
                             Wst->bearb_ptr()->edit(i, n.text());
@@ -252,9 +266,10 @@ void Dialog_schnellaenderung::on_pushButton_werte_aendern_clicked()
                     }
                 }
             }
-        }else if(ui->comboBox_dlg->currentText() == "Rechteckstaschen")
+        }
+        else if(ui->comboBox_dlg->currentText() == "Rechteckstaschen")
         {
-            for(uint i = Startzeile; i <= Startzeile+Menge-1; i++)
+            for(uint i = Startzeile; i <= Startzeile + Menge - 1; i++)
             {
                 QString programmzeile = Wst->bearb().at(i);
                 if(programmzeile.contains(BEARBART_RTA))
@@ -264,31 +279,34 @@ void Dialog_schnellaenderung::on_pushButton_werte_aendern_clicked()
                     if(par == "Ausführbedingung")
                     {
                         wert = rta.afb();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             rta.set_afb(wert_neu);
                             Wst->bearb_ptr()->edit(i, rta.text());
                         }
-                    }else if(par == "Länge")
+                    }
+                    else if(par == "Länge")
                     {
                         wert = rta.laenge_qstring();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             rta.set_laenge(wert_neu);
                             Wst->bearb_ptr()->edit(i, rta.text());
                         }
-                    }else if(par == "Breite")
+                    }
+                    else if(par == "Breite")
                     {
                         wert = rta.breite_qstring();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             rta.set_breite(wert_neu);
                             Wst->bearb_ptr()->edit(i, rta.text());
                         }
-                    }else if(par == "Tiefe")
+                    }
+                    else if(par == "Tiefe")
                     {
                         wert = rta.tiefe_qstring();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             rta.set_tiefe(wert_neu);
                             Wst->bearb_ptr()->edit(i, rta.text());
@@ -296,9 +314,10 @@ void Dialog_schnellaenderung::on_pushButton_werte_aendern_clicked()
                     }
                 }
             }
-        }else if(ui->comboBox_dlg->currentText() == "Fräseraufrufe")
+        }
+        else if(ui->comboBox_dlg->currentText() == "Fräseraufrufe")
         {
-            for(uint i = Startzeile; i <= Startzeile+Menge-1; i++)
+            for(uint i = Startzeile; i <= Startzeile + Menge - 1; i++)
             {
                 QString programmzeile = Wst->bearb().at(i);
                 if(programmzeile.contains(BEARBART_FRAESERAUFRUF))
@@ -308,31 +327,34 @@ void Dialog_schnellaenderung::on_pushButton_werte_aendern_clicked()
                     if(par == "Anfahrtyp")
                     {
                         wert = fa.anfahrtyp();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             fa.set_anfahrtyp(wert_neu);
                             Wst->bearb_ptr()->edit(i, fa.text());
                         }
-                    }else if(par == "Abfahrtyp")
+                    }
+                    else if(par == "Abfahrtyp")
                     {
                         wert = fa.abfahrtyp();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             fa.set_abfahrtyp(wert_neu);
                             Wst->bearb_ptr()->edit(i, fa.text());
                         }
-                    }else if(par == "Anfahrwert")
+                    }
+                    else if(par == "Anfahrwert")
                     {
                         wert = fa.anfahrweg_qstring();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             fa.set_anfahrweg(wert_neu);
                             Wst->bearb_ptr()->edit(i, fa.text());
                         }
-                    }else if(par == "Abfahrwert")
+                    }
+                    else if(par == "Abfahrwert")
                     {
                         wert = fa.abfahrweg_qstring();
-                        if(wert == wert_alt  ||  wert_alt == "ALLE")
+                        if(wert == wert_alt || wert_alt == "ALLE")
                         {
                             fa.set_abfahrweg(wert_neu);
                             Wst->bearb_ptr()->edit(i, fa.text());
@@ -344,7 +366,8 @@ void Dialog_schnellaenderung::on_pushButton_werte_aendern_clicked()
 
         werte_ermitteln();
         emit werte_wurden_angepasst();
-    }else
+    }
+    else
     {
         QString msg;
         msg = "Sie haben keinen neunen Wert definiert!";
@@ -352,12 +375,11 @@ void Dialog_schnellaenderung::on_pushButton_werte_aendern_clicked()
         mb.setText(msg);
         mb.exec();
     }
-
 }
 
 void Dialog_schnellaenderung::werte_ermitteln()
 {
-    ui->comboBox_alt->clear(); //Jetige Werte des Paramters
+    ui->comboBox_alt->clear(); // Jetige Werte des Paramters
     QString dlg = ui->comboBox_dlg->currentText();
     QString par = ui->comboBox_param->currentText();
     text_zw werte_alt;
@@ -365,7 +387,7 @@ void Dialog_schnellaenderung::werte_ermitteln()
 
     if(ui->comboBox_dlg->currentText() == "ALLE")
     {
-        for(uint i = Startzeile; i <= Startzeile+Menge-1; i++)
+        for(uint i = Startzeile; i <= Startzeile + Menge - 1; i++)
         {
             QString programmzeile = Wst->bearb().at(i);
             QString parname = "AFB=";
@@ -374,22 +396,24 @@ void Dialog_schnellaenderung::werte_ermitteln()
             {
                 bohrung bo(programmzeile);
                 wert = bo.afb();
-            }else if(programmzeile.contains(BEARBART_RTA))
+            }
+            else if(programmzeile.contains(BEARBART_RTA))
             {
                 rechtecktasche rta(programmzeile);
                 wert = rta.afb();
-            }else if(programmzeile.contains(BEARBART_NUT))
+            }
+            else if(programmzeile.contains(BEARBART_NUT))
             {
                 nut n(programmzeile);
                 wert = n.afb();
             }
             bool vorhanden = false;
-            for(uint ii=0; ii< werte_alt.count() ;ii++)
+            for(uint ii = 0; ii < werte_alt.count(); ii++)
             {
                 if(werte_alt.at(ii) == wert)
                 {
                     vorhanden = true;
-                    break; //for ii
+                    break; // for ii
                 }
             }
             if(vorhanden == false && !wert.isEmpty())
@@ -397,9 +421,10 @@ void Dialog_schnellaenderung::werte_ermitteln()
                 werte_alt.add_hi(wert);
             }
         }
-    }else if(ui->comboBox_dlg->currentText() == "Bohrungen")
+    }
+    else if(ui->comboBox_dlg->currentText() == "Bohrungen")
     {
-        for(uint i = Startzeile; i <= Startzeile+Menge-1; i++)
+        for(uint i = Startzeile; i <= Startzeile + Menge - 1; i++)
         {
             QString programmzeile = Wst->bearb().at(i);
             if(programmzeile.contains(BEARBART_BOHR))
@@ -409,20 +434,22 @@ void Dialog_schnellaenderung::werte_ermitteln()
                 if(par == "Ausführbedingung")
                 {
                     wert = bo.afb();
-                }else if(par == "Durchmesser")
+                }
+                else if(par == "Durchmesser")
                 {
                     wert = bo.dm_qstring();
-                }else if(par == "Tiefe")
+                }
+                else if(par == "Tiefe")
                 {
                     wert = bo.tiefe_qstring();
                 }
                 bool vorhanden = false;
-                for(uint ii=0; ii< werte_alt.count() ;ii++)
+                for(uint ii = 0; ii < werte_alt.count(); ii++)
                 {
                     if(werte_alt.at(ii) == wert)
                     {
                         vorhanden = true;
-                        break; //for ii
+                        break; // for ii
                     }
                 }
                 if(vorhanden == false && !wert.isEmpty())
@@ -431,9 +458,10 @@ void Dialog_schnellaenderung::werte_ermitteln()
                 }
             }
         }
-    }else if(ui->comboBox_dlg->currentText() == "Nuten")
+    }
+    else if(ui->comboBox_dlg->currentText() == "Nuten")
     {
-        for(uint i = Startzeile; i <= Startzeile+Menge-1; i++)
+        for(uint i = Startzeile; i <= Startzeile + Menge - 1; i++)
         {
             QString programmzeile = Wst->bearb().at(i);
             if(programmzeile.contains(BEARBART_NUT))
@@ -443,32 +471,34 @@ void Dialog_schnellaenderung::werte_ermitteln()
                 if(par == "Ausführbedingung")
                 {
                     wert = n.afb();
-                }else if(par == "Breite")
+                }
+                else if(par == "Breite")
                 {
                     wert = n.breite_qstring();
-                }else if(par == "Tiefe")
+                }
+                else if(par == "Tiefe")
                 {
                     wert = n.tiefe_qstring();
                 }
                 bool vorhanden = false;
-                for(uint ii=0; ii< werte_alt.count() ;ii++)
+                for(uint ii = 0; ii < werte_alt.count(); ii++)
                 {
                     if(werte_alt.at(ii) == wert)
                     {
                         vorhanden = true;
-                        break; //for ii
+                        break; // for ii
                     }
                 }
                 if(vorhanden == false && !wert.isEmpty())
                 {
                     werte_alt.add_hi(wert);
                 }
-
             }
         }
-    }else if(ui->comboBox_dlg->currentText() == "Rechteckstaschen")
-    {        
-        for(uint i = Startzeile; i <= Startzeile+Menge-1; i++)
+    }
+    else if(ui->comboBox_dlg->currentText() == "Rechteckstaschen")
+    {
+        for(uint i = Startzeile; i <= Startzeile + Menge - 1; i++)
         {
             QString programmzeile = Wst->bearb().at(i);
             if(programmzeile.contains(BEARBART_RTA))
@@ -478,35 +508,38 @@ void Dialog_schnellaenderung::werte_ermitteln()
                 if(par == "Ausführbedingung")
                 {
                     wert = rta.afb();
-                }else if(par == "Länge")
+                }
+                else if(par == "Länge")
                 {
                     wert = rta.laenge_qstring();
-                }else if(par == "Breite")
+                }
+                else if(par == "Breite")
                 {
                     wert = rta.breite_qstring();
-                }else if(par == "Tiefe")
+                }
+                else if(par == "Tiefe")
                 {
                     wert = rta.tiefe_qstring();
                 }
                 bool vorhanden = false;
-                for(uint ii=0; ii< werte_alt.count() ;ii++)
+                for(uint ii = 0; ii < werte_alt.count(); ii++)
                 {
                     if(werte_alt.at(ii) == wert)
                     {
                         vorhanden = true;
-                        break; //for ii
+                        break; // for ii
                     }
                 }
                 if(vorhanden == false && !wert.isEmpty())
                 {
                     werte_alt.add_hi(wert);
                 }
-
             }
         }
-    }else if(ui->comboBox_dlg->currentText() == "Fräseraufrufe")
+    }
+    else if(ui->comboBox_dlg->currentText() == "Fräseraufrufe")
     {
-        for(uint i = Startzeile; i <= Startzeile+Menge-1; i++)
+        for(uint i = Startzeile; i <= Startzeile + Menge - 1; i++)
         {
             QString programmzeile = Wst->bearb().at(i);
             if(programmzeile.contains(BEARBART_FRAESERAUFRUF))
@@ -516,36 +549,38 @@ void Dialog_schnellaenderung::werte_ermitteln()
                 if(par == "Anfahrtyp")
                 {
                     wert = fa.anfahrtyp();
-                }else if(par == "Abfahrtyp")
+                }
+                else if(par == "Abfahrtyp")
                 {
                     wert = fa.abfahrtyp();
-                }else if(par == "Anfahrwert")
+                }
+                else if(par == "Anfahrwert")
                 {
                     wert = fa.anfahrweg_qstring();
-                }else if(par == "Abfahrwert")
+                }
+                else if(par == "Abfahrwert")
                 {
                     wert = fa.abfahrweg_qstring();
                 }
                 bool vorhanden = false;
-                for(uint ii=0; ii< werte_alt.count() ;ii++)
+                for(uint ii = 0; ii < werte_alt.count(); ii++)
                 {
                     if(werte_alt.at(ii) == wert)
                     {
                         vorhanden = true;
-                        break; //for ii
+                        break; // for ii
                     }
                 }
                 if(vorhanden == false && !wert.isEmpty())
                 {
                     werte_alt.add_hi(wert);
                 }
-
             }
         }
     }
 
     ui->comboBox_alt->clear();
-    for(uint i = 0; i < werte_alt.count() ;i++)
+    for(uint i = 0; i < werte_alt.count(); i++)
     {
         ui->comboBox_alt->addItem(werte_alt.at(i));
     }
@@ -555,7 +590,3 @@ void Dialog_schnellaenderung::on_pushButton_schliessen_clicked()
 {
     this->close();
 }
-
-
-
-

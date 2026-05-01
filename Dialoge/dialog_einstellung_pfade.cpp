@@ -1,9 +1,8 @@
 #include "dialog_einstellung_pfade.h"
+
 #include "ui_dialog_einstellung_pfade.h"
 
-Dialog_Einstellung_pfade::Dialog_Einstellung_pfade(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_Einstellung_pfade)
+Dialog_Einstellung_pfade::Dialog_Einstellung_pfade(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_Einstellung_pfade)
 {
     ui->setupUi(this);
 }
@@ -38,10 +37,11 @@ void Dialog_Einstellung_pfade::on_pushButton_quelle_clicked()
     {
         Einstellung.set_verzeichnis_quelle("./");
     }
-    //QString tmp = QFileDialog::getExistingDirectory(this, tr("Quellverzeichniss"), Einstellung.verzeichnis_quelle());
-    QString tmp = QFileDialog::getExistingDirectory(this, tr("Quellverzeichniss"),
-                                    Einstellung.verzeichnis_quelle(),
-                                    QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog );
+    // QString tmp = QFileDialog::getExistingDirectory(this, tr("Quellverzeichniss"), Einstellung.verzeichnis_quelle());
+    QString tmp = QFileDialog::getExistingDirectory(this,
+                                                    tr("Quellverzeichniss"),
+                                                    Einstellung.verzeichnis_quelle(),
+                                                    QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog);
     if(!tmp.isEmpty())
     {
         Einstellung.set_verzeichnis_quelle(tmp);
@@ -54,9 +54,10 @@ void Dialog_Einstellung_pfade::on_pushButton_ziel_server_clicked()
     {
         Einstellung.set_verzeichnis_ziel_server("./");
     }
-    QString tmp = QFileDialog::getExistingDirectory(this, tr("Zielverzeichniss Server"),
+    QString tmp = QFileDialog::getExistingDirectory(this,
+                                                    tr("Zielverzeichniss Server"),
                                                     Einstellung.verzeichnis_ziel_server(),
-                                                    QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog );
+                                                    QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog);
     if(!tmp.isEmpty())
     {
         Einstellung.set_verzeichnis_ziel_server(tmp);
@@ -69,9 +70,10 @@ void Dialog_Einstellung_pfade::on_pushButton_ziel_lokal_clicked()
     {
         Einstellung.set_verzeichnis_ziel_lokal("./");
     }
-    QString tmp = QFileDialog::getExistingDirectory(this, tr("Zielverzeichniss lokal"),
+    QString tmp = QFileDialog::getExistingDirectory(this,
+                                                    tr("Zielverzeichniss lokal"),
                                                     Einstellung.verzeichnis_ziel_lokal(),
-                                                    QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog );
+                                                    QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog);
     if(!tmp.isEmpty())
     {
         Einstellung.set_verzeichnis_ziel_lokal(tmp);
@@ -84,9 +86,10 @@ void Dialog_Einstellung_pfade::on_lineEdit_quelle_editingFinished()
     QString eingabe = ui->lineEdit_quelle->text();
     if(!QDir(eingabe).exists())
     {
-        QMessageBox::warning(this,"Fehler","Verzeichniss \"" + eingabe + "\" nicht gefunden!",QMessageBox::Ok);
+        QMessageBox::warning(this, "Fehler", "Verzeichniss \"" + eingabe + "\" nicht gefunden!", QMessageBox::Ok);
         ui->lineEdit_quelle->setText(Einstellung.verzeichnis_quelle());
-    }else
+    }
+    else
     {
         Einstellung.set_verzeichnis_quelle(eingabe);
     }
@@ -96,9 +99,10 @@ void Dialog_Einstellung_pfade::on_lineEdit_ziel_server_editingFinished()
     QString eingabe = ui->lineEdit_ziel_server->text();
     if(!QDir(eingabe).exists())
     {
-        QMessageBox::warning(this,"Fehler","Verzeichniss \"" + eingabe + "\" nicht gefunden!",QMessageBox::Ok);
+        QMessageBox::warning(this, "Fehler", "Verzeichniss \"" + eingabe + "\" nicht gefunden!", QMessageBox::Ok);
         ui->lineEdit_ziel_server->setText(Einstellung.verzeichnis_ziel_server());
-    }else
+    }
+    else
     {
         Einstellung.set_verzeichnis_ziel_server(eingabe);
     }
@@ -108,26 +112,11 @@ void Dialog_Einstellung_pfade::on_lineEdit_ziel_lokal_editingFinished()
     QString eingabe = ui->lineEdit_ziel_lokal->text();
     if(!QDir(eingabe).exists())
     {
-        QMessageBox::warning(this,"Fehler","Verzeichniss \"" + eingabe + "\" nicht gefunden!",QMessageBox::Ok);
+        QMessageBox::warning(this, "Fehler", "Verzeichniss \"" + eingabe + "\" nicht gefunden!", QMessageBox::Ok);
         ui->lineEdit_ziel_lokal->setText(Einstellung.verzeichnis_ziel_lokal());
-    }else
+    }
+    else
     {
         Einstellung.set_verzeichnis_ziel_lokal(eingabe);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

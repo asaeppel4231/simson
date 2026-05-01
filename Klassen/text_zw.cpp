@@ -32,7 +32,8 @@ QString text_zw::at(uint zeilennummer)
     if(zeilennummer < Daten.size())
     {
         ret = Daten.at(zeilennummer);
-    }else
+    }
+    else
     {
         ret = "Fehler in Funktion text_zw::at(...)! Zeilennummer zu hoch.";
     }
@@ -41,10 +42,10 @@ QString text_zw::at(uint zeilennummer)
 QString text_zw::at(uint zeilennummer_beginn, uint zeilenmenge)
 {
     QString ret;
-    uint zeilennummer_ende = zeilennummer_beginn + zeilenmenge - 1 ;
+    uint zeilennummer_ende = zeilennummer_beginn + zeilenmenge - 1;
     if(zeilennummer_ende < Daten.size())
     {
-        for(uint i=zeilennummer_beginn; i<=zeilennummer_ende ;i++)
+        for(uint i = zeilennummer_beginn; i <= zeilennummer_ende; i++)
         {
             ret += Daten.at(i);
             if(i < zeilennummer_ende)
@@ -52,7 +53,8 @@ QString text_zw::at(uint zeilennummer_beginn, uint zeilenmenge)
                 ret += Trennzeichen;
             }
         }
-    }else
+    }
+    else
     {
         ret = "Fehler in Funktion text_zw::at(...)! Zeilennummer + Menge > Wertebereich";
     }
@@ -61,10 +63,10 @@ QString text_zw::at(uint zeilennummer_beginn, uint zeilenmenge)
 QString text_zw::text()
 {
     QString ret;
-    for(uint i=0; i<Daten.size() ;i++)
+    for(uint i = 0; i < Daten.size(); i++)
     {
         ret += Daten.at(i);
-        if(i+1 < Daten.size())
+        if(i + 1 < Daten.size())
         {
             ret += Trennzeichen;
         }
@@ -112,15 +114,15 @@ int text_zw::add_mi(uint index_vor, QString text)
 {
     if(Daten.empty())
     {
-        //Kann nicht eingefügt werden weil Daten leer ist
-        //text wird zu Daten, statt darin eingefügt zu werden:
+        // Kann nicht eingefügt werden weil Daten leer ist
+        // text wird zu Daten, statt darin eingefügt zu werden:
         Daten = to_vector(text, Trennzeichen);
         return 1;
     }
-    if(index_vor >= Daten.size())//index ist zu groß
+    if(index_vor >= Daten.size()) // index ist zu groß
     {
-        //Kann nicht eingefügt werden weil Daten zu klein ist ist
-        //text hinten an Daten anhängen:
+        // Kann nicht eingefügt werden weil Daten zu klein ist ist
+        // text hinten an Daten anhängen:
         std::vector<QString> v;
         v = to_vector(text, Trennzeichen);
         Daten.insert(Daten.end(), v.begin(), v.end());
@@ -128,24 +130,24 @@ int text_zw::add_mi(uint index_vor, QString text)
     }
     std::vector<QString> v;
     v = to_vector(text, Trennzeichen);
-    Daten.insert(Daten.begin()+1+index_vor, v.begin(), v.end());
+    Daten.insert(Daten.begin() + 1 + index_vor, v.begin(), v.end());
     return 0;
 }
 int text_zw::edit(uint index, QString neuer_text)
 {
     if(Daten.empty())
     {
-        //es gibt keine Zeilen zum ersetzen
+        // es gibt keine Zeilen zum ersetzen
         return 1;
     }
     if(index >= Daten.size())
     {
-        //index ist zu groß
+        // index ist zu groß
         return 2;
     }
     int ret = 0;
     //  0: keine Warnungen
-    //101: text enthällt Trennzeichen / diese Trennzeichen wurden entfernt
+    // 101: text enthällt Trennzeichen / diese Trennzeichen wurden entfernt
     if(neuer_text.contains(Trennzeichen))
     {
         ret = 101;
@@ -158,34 +160,34 @@ int text_zw::entf(uint index, uint menge)
 {
     if(Daten.empty())
     {
-        //es gibt keine Zeilen zum entfernen
+        // es gibt keine Zeilen zum entfernen
         return 1;
     }
     if(menge == 0)
     {
-        //es soll nichts entfernt werden
+        // es soll nichts entfernt werden
         return 2;
     }
     if(index + 1 > Daten.size())
     {
-        //index ist zu groß
+        // index ist zu groß
         return 3;
     }
     int ret = 0;
     //  0: keine Warnungen
-    //101: Bereich überschritten / index+menge ist zu groß
+    // 101: Bereich überschritten / index+menge ist zu groß
     if(index + menge > Daten.size())
     {
-        //index+menge ist zu groß
+        // index+menge ist zu groß
         ret = 101;
-        menge = Daten.size()-index;
+        menge = Daten.size() - index;
     }
-    Daten.erase(Daten.begin()+index, Daten.begin()+index+menge);
+    Daten.erase(Daten.begin() + index, Daten.begin() + index + menge);
     return ret;
 }
 
 //--------------------------------------------------------------------------------------
-//private:
+// private:
 std::vector<QString> text_zw::to_vector(QString text, char trennzeichen)
 {
     std::vector<QString> v;
@@ -193,14 +195,15 @@ std::vector<QString> text_zw::to_vector(QString text, char trennzeichen)
     {
         QString zeile;
         int letztes_trennzeichen = 0;
-        for(int i=0; i<text.length() ;i++)
+        for(int i = 0; i < text.length(); i++)
         {
             if(text.at(i) == trennzeichen)
             {
                 v.push_back(zeile);
                 zeile.clear();
                 letztes_trennzeichen = i;
-            }else
+            }
+            else
             {
                 zeile += text.at(i);
             }
@@ -210,7 +213,8 @@ std::vector<QString> text_zw::to_vector(QString text, char trennzeichen)
         {
             v.push_back(text.right(anz_rest));
         }
-    }else
+    }
+    else
     {
         v.push_back(text);
     }
@@ -218,22 +222,24 @@ std::vector<QString> text_zw::to_vector(QString text, char trennzeichen)
 }
 
 //-------------------Funktionen nicht innerhalb der Klasse:
-bool operator ==(text_zw t1, text_zw t2)
+bool operator==(text_zw t1, text_zw t2)
 {
     if(t1.text() == t2.text())
     {
         return true;
-    }else
+    }
+    else
     {
         return false;
     }
 }
-bool operator !=(text_zw t1, text_zw t2)
+bool operator!=(text_zw t1, text_zw t2)
 {
     if(t1.text() != t2.text())
     {
         return true;
-    }else
+    }
+    else
     {
         return false;
     }

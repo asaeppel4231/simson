@@ -1,9 +1,8 @@
 #include "dialog_gcode.h"
+
 #include "ui_dialog_gcode.h"
 
-Dialog_GCode::Dialog_GCode(QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::Dialog_GCode)
+Dialog_GCode::Dialog_GCode(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_GCode)
 {
     ui->setupUi(this);
 }
@@ -12,12 +11,12 @@ Dialog_GCode::~Dialog_GCode()
 {
     delete ui;
 }
-void Dialog_GCode::set_maschine(maschine *m)
+void Dialog_GCode::set_maschine(maschine* m)
 {
     Maschine = m;
     ui->lineEdit_maschine->setText(Maschine->name());
 }
-void Dialog_GCode::set_wst(werkstueck *w)
+void Dialog_GCode::set_wst(werkstueck* w)
 {
     Wst = w;
     ui->lineEdit_datei->setText(Wst->dateipfad());
@@ -39,29 +38,29 @@ void Dialog_GCode::on_pushButton_speichern_clicked()
         return;
     }
 
-    dateipfad.replace( DATEIENDUNG_EIGENE, ".ngc");
+    dateipfad.replace(DATEIENDUNG_EIGENE, ".ngc");
     QFile file(dateipfad);
 
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QMessageBox::critical(this, tr("Fehler"), tr("Datei konnte nicht zum Schreiben geöffnet werden."));
         return;
     }
 
     QString dateiInhalt = ui->plainTextEdit->toPlainText();
-    if (dateiInhalt.isEmpty())
+    if(dateiInhalt.isEmpty())
     {
         on_pushButton_erstellen_clicked();
         dateiInhalt = ui->plainTextEdit->toPlainText();
 
-        if (dateiInhalt.isEmpty())
+        if(dateiInhalt.isEmpty())
         {
             QMessageBox::critical(this, tr("Fehler"), tr("Kein GCode vorhanden der gespeichert werden kann."));
             return;
         }
     }
 
-    if (file.write(dateiInhalt.toUtf8()) == -1)
+    if(file.write(dateiInhalt.toUtf8()) == -1)
     {
         QMessageBox::critical(this, tr("Fehler"), tr("Inhalt konnte nicht geschrieben werden."));
         file.close();
@@ -71,7 +70,7 @@ void Dialog_GCode::on_pushButton_speichern_clicked()
     file.close();
 
     QString msg;
-    msg  = "Die Datei \"";
+    msg = "Die Datei \"";
     msg += dateipfad;
     msg += "\" wurde erfolgreich gespeichert.";
     QMessageBox mb;
@@ -79,4 +78,3 @@ void Dialog_GCode::on_pushButton_speichern_clicked()
     mb.setWindowTitle("GCode speichern");
     mb.exec();
 }
-

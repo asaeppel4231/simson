@@ -1,18 +1,17 @@
 #include "dialog_bearb_fbogen.h"
+
 #include "ui_dialog_bearb_fbogen.h"
 
-Dialog_bearb_fbogen::Dialog_bearb_fbogen(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_bearb_fbogen)
+Dialog_bearb_fbogen::Dialog_bearb_fbogen(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_bearb_fbogen)
 {
     ui->setupUi(this);
     Wst = nullptr;
     this->setWindowTitle("Bogenfräsung");
-    ui->comboBox_bezug->addItem("Oberseite");   //0
-    ui->comboBox_bezug->addItem("Unterseite");  //1
+    ui->comboBox_bezug->addItem("Oberseite");  // 0
+    ui->comboBox_bezug->addItem("Unterseite"); // 1
     //---
-    ui->comboBox_uzs->addItem("UZS");   //0
-    ui->comboBox_uzs->addItem("GUZS");  //1
+    ui->comboBox_uzs->addItem("UZS");  // 0
+    ui->comboBox_uzs->addItem("GUZS"); // 1
     ui->btn_ok->setFocus();
 }
 
@@ -21,7 +20,7 @@ Dialog_bearb_fbogen::~Dialog_bearb_fbogen()
     delete ui;
 }
 
-void Dialog_bearb_fbogen::set_data(QString d, werkstueck *w)
+void Dialog_bearb_fbogen::set_data(QString d, werkstueck* w)
 {
     Wst = w;
     fraeserbogen fb;
@@ -35,20 +34,22 @@ void Dialog_bearb_fbogen::set_data(QString d, werkstueck *w)
     ui->lineEdit_tiEnd->setText(fb.tiEnd_qstring());
     ui->lineEdit_rad->setText(fb.rad_qstring());
     //---------
-    //UZS:
+    // UZS:
     if(fb.bog().uzs() == true)
     {
         ui->comboBox_uzs->setCurrentIndex(0);
-    }else
+    }
+    else
     {
         ui->comboBox_uzs->setCurrentIndex(1);
     }
-    //---------    
-    //Bezug:
+    //---------
+    // Bezug:
     if(fb.bezug() == WST_BEZUG_OBSEI)
     {
         ui->comboBox_bezug->setCurrentIndex(0);
-    }else if(fb.bezug() == WST_BEZUG_UNSEI)
+    }
+    else if(fb.bezug() == WST_BEZUG_UNSEI)
     {
         ui->comboBox_bezug->setCurrentIndex(1);
     }
@@ -73,7 +74,8 @@ void Dialog_bearb_fbogen::aktualisiere_infofelder()
         if(uzs == "UZS")
         {
             uzs_bool = true;
-        }else
+        }
+        else
         {
             uzs_bool = false;
         }
@@ -90,7 +92,8 @@ void Dialog_bearb_fbogen::aktualisiere_infofelder()
         {
             ui->lineEdit_rad->setStyleSheet("background-color: yellow;");
             ui->lineEdit_rad_berechnet->setStyleSheet("background-color: yellow;");
-        }else
+        }
+        else
         {
             ui->lineEdit_rad->setStyleSheet("");
             ui->lineEdit_rad_berechnet->setStyleSheet("");
@@ -107,7 +110,8 @@ QString Dialog_bearb_fbogen::var_zu_wert(QString term)
         term.replace("B", Wst->breite_qstring());
         term.replace("D", Wst->dicke_qstring());
         term = berechnen(term);
-    }else
+    }
+    else
     {
         berechnen(term);
     }
@@ -132,7 +136,8 @@ void Dialog_bearb_fbogen::on_btn_ok_clicked()
     if(uzs == "UZS")
     {
         uzs_bool = true;
-    }else
+    }
+    else
     {
         uzs_bool = false;
     }
@@ -142,7 +147,8 @@ void Dialog_bearb_fbogen::on_btn_ok_clicked()
     if(bezug == "Oberseite")
     {
         fb.set_bezug(WST_BEZUG_OBSEI);
-    }else if(bezug == "Unterseite")
+    }
+    else if(bezug == "Unterseite")
     {
         fb.set_bezug(WST_BEZUG_UNSEI);
     }
@@ -157,7 +163,7 @@ void Dialog_bearb_fbogen::on_btn_abbrechen_clicked()
     this->close();
 }
 
-void Dialog_bearb_fbogen::showEvent(QShowEvent *event)
+void Dialog_bearb_fbogen::showEvent(QShowEvent* event)
 {
     QDialog::showEvent(event); // Basisklasse aufrufen nicht vergessen!
 
@@ -189,4 +195,3 @@ void Dialog_bearb_fbogen::on_lineEdit_rad_editingFinished()
 {
     aktualisiere_infofelder();
 }
-

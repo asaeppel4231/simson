@@ -1,13 +1,15 @@
 #ifndef DIALOG_BEARB_FAUFRUF_H
 #define DIALOG_BEARB_FAUFRUF_H
 
-#include "Klassen/wst/fraeseraufruf.h"
-#include "Klassen/formel.h"
-#include "Klassen/wst/werkstueck.h"
-#include "Dialoge/wkz/dialog_fraeserauswahl.h"
 #include <QDialog>
 
-namespace Ui {
+#include "Dialoge/wkz/dialog_fraeserauswahl.h"
+#include "Klassen/formel.h"
+#include "Klassen/wst/fraeseraufruf.h"
+#include "Klassen/wst/werkstueck.h"
+
+namespace Ui
+{
 class Dialog_bearb_faufruf;
 }
 
@@ -15,29 +17,29 @@ class Dialog_bearb_faufruf : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit Dialog_bearb_faufruf(QWidget *parent = nullptr);
+  public:
+    explicit Dialog_bearb_faufruf(QWidget* parent = nullptr);
     ~Dialog_bearb_faufruf();
-    void set_data(QString d, werkstueck *w, text_zw wkzmag);
+    void set_data(QString d, werkstueck* w, text_zw wkzmag);
 
-private slots:
+  private slots:
     void on_btn_ok_clicked();
     void on_btn_abbrechen_clicked();
     void on_pushButton_wkzwahl_clicked();
 
-    void on_comboBox_kor_currentTextChanged(const QString &arg1);
+    void on_comboBox_kor_currentTextChanged(const QString& arg1);
 
-    void on_comboBox_bezug_currentTextChanged(const QString &arg1);
+    void on_comboBox_bezug_currentTextChanged(const QString& arg1);
 
-public slots:
+  public slots:
     void get_wkz(QString wkz);
 
-signals:
+  signals:
     void signal_faufruf(fraeseraufruf fa);
 
-private:
-    Ui::Dialog_bearb_faufruf *ui;
-    werkstueck *Wst;
+  private:
+    Ui::Dialog_bearb_faufruf* ui;
+    werkstueck* Wst;
     text_zw Wkzmag;
     QString var_zu_wert(QString term);
 

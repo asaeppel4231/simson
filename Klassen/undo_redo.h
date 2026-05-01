@@ -2,13 +2,12 @@
 #define UNDO_REDO_TZ_H
 
 #include <vector>
+
 #include "Klassen/text_zw.h"
 
-
-template<typename T>
-class undo_redo
+template <typename T> class undo_redo
 {
-public:
+  public:
     undo_redo()
     {
         set_groesse_max(100);
@@ -18,7 +17,7 @@ public:
     {
         // Falls wir nach einem Undo in der Mitte des Stacks sind:
         // Alles löschen, was nach der aktuellen Position kommt
-        if ((uint)Aktuelle_position + 1 < Vector_t.size())
+        if((uint)Aktuelle_position + 1 < Vector_t.size())
         {
             Vector_t.erase(Vector_t.begin() + Aktuelle_position + 1, Vector_t.end());
             Erstes_aktives_element_t.erase(Erstes_aktives_element_t.begin() + Aktuelle_position + 1, Erstes_aktives_element_t.end());
@@ -26,7 +25,7 @@ public:
         }
 
         // Wenn Maximum erreicht: Erstes Element entfernen
-        if (Vector_t.size() >= Max_anzahl && Max_anzahl > 0)
+        if(Vector_t.size() >= Max_anzahl && Max_anzahl > 0)
         {
             Vector_t.erase(Vector_t.begin());
             Erstes_aktives_element_t.erase(Erstes_aktives_element_t.begin());
@@ -71,11 +70,11 @@ public:
     {
         return Vector_t.size();
     }
-    int  erstes_aktives_element()
+    int erstes_aktives_element()
     {
         return Erstes_aktives_element_t.at(Aktuelle_position);
     }
-    int  anz_aktive_elemente()
+    int anz_aktive_elemente()
     {
         return Vector_t.size(); // Gibt die Anzahl der gespeicherten Schritte zurück
     }
@@ -84,7 +83,8 @@ public:
         if(Aktuelle_position >= 0)
         {
             return Vector_t.at(Aktuelle_position);
-        }else
+        }
+        else
         {
             T ein_leeres_etwas;
             return ein_leeres_etwas;
@@ -96,7 +96,7 @@ public:
     }
 
     //----------------------------------------Manipulationen:
-    void             clear()
+    void clear()
     {
         Aktuelle_position = -1;
         Vector_t.clear();
@@ -107,18 +107,20 @@ public:
         {
             Aktuelle_position--;
             return Vector_t.at(Aktuelle_position);
-        }else
+        }
+        else
         {
             return Vector_t.at(0);
         }
     }
     T redo()
     {
-        if((uint)Aktuelle_position+1 < Vector_t.size())
+        if((uint)Aktuelle_position + 1 < Vector_t.size())
         {
             Aktuelle_position++;
             return Vector_t.at(Aktuelle_position);
-        }else
+        }
+        else
         {
             return Vector_t.at(Aktuelle_position);
         }
@@ -126,20 +128,13 @@ public:
 
     //----------------------------------------
 
-private:
-
+  private:
     std::vector<T> Vector_t;
-    std::vector<int>              Erstes_aktives_element_t;
-    std::vector<int>              Anz_aktive_elemente_t;
+    std::vector<int> Erstes_aktives_element_t;
+    std::vector<int> Anz_aktive_elemente_t;
 
-    int  Aktuelle_position;
+    int Aktuelle_position;
     uint Max_anzahl;
-
-
-
-
 };
-
-
 
 #endif // UNDO_REDO_TZ_H

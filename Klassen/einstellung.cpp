@@ -2,31 +2,34 @@
 
 einstellung::einstellung()
 {
-    Entwicklermodus             = false;
-    Verzeichnis_quelle          = "./";
-    Verzeichnis_ziel_server     = "./";
-    Verzeichnis_ziel_lokal      = "./";
+    Entwicklermodus = false;
+    Verzeichnis_quelle = "./";
+    Verzeichnis_ziel_server = "./";
+    Verzeichnis_ziel_lokal = "./";
 }
 
 //----------------------------------------set:
 void einstellung::set_text(QString t)
 {
     text_zw tz;
-    tz.set_text(t,'\n');
-    for(uint i=0; i<tz.count() ;i++)
+    tz.set_text(t, '\n');
+    for(uint i = 0; i < tz.count(); i++)
     {
         text_zw spalten;
-        spalten.set_text(tz.at(i),'\t');
+        spalten.set_text(tz.at(i), '\t');
         if(spalten.at(0) == "Entwicklermodus:")
         {
             set_entwicklermodus(spalten.at(1));
-        }else if(spalten.at(0) == "verzeichnis_quelle:")
+        }
+        else if(spalten.at(0) == "verzeichnis_quelle:")
         {
             set_verzeichnis_quelle(spalten.at(1));
-        }else if(spalten.at(0) == "verzeichnis_ziel_server:")
+        }
+        else if(spalten.at(0) == "verzeichnis_ziel_server:")
         {
             set_verzeichnis_ziel_server(spalten.at(1));
-        }else if(spalten.at(0) == "verzeichnis_ziel_lokal:")
+        }
+        else if(spalten.at(0) == "verzeichnis_ziel_lokal:")
         {
             set_verzeichnis_ziel_lokal(spalten.at(1));
         }
@@ -45,7 +48,8 @@ void einstellung::set_entwicklermodus(QString jn)
     if(jn == "ja")
     {
         set_entwicklermodus(true);
-    }else
+    }
+    else
     {
         set_entwicklermodus(false);
     }
@@ -77,7 +81,8 @@ QString einstellung::text()
     if(entwicklermodus() == true)
     {
         text += "ja";
-    }else
+    }
+    else
     {
         text += "nein";
     }

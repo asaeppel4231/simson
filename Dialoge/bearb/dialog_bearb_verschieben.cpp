@@ -1,9 +1,8 @@
 #include "dialog_bearb_verschieben.h"
+
 #include "ui_dialog_bearb_verschieben.h"
 
-Dialog_bearb_verschieben::Dialog_bearb_verschieben(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_bearb_verschieben)
+Dialog_bearb_verschieben::Dialog_bearb_verschieben(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_bearb_verschieben)
 {
     ui->setupUi(this);
     ui->lineEdit_ax->setText("0");

@@ -1,9 +1,8 @@
 #include "dialog_bearb_pkopf.h"
+
 #include "ui_dialog_bearb_pkopf.h"
 
-Dialog_bearb_pkopf::Dialog_bearb_pkopf(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::Dialog_bearb_pkopf)
+Dialog_bearb_pkopf::Dialog_bearb_pkopf(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_bearb_pkopf)
 {
     ui->setupUi(this);
     this->setWindowTitle("Programmkopf");
@@ -16,7 +15,7 @@ Dialog_bearb_pkopf::~Dialog_bearb_pkopf()
     delete ui;
 }
 
-void Dialog_bearb_pkopf::set_data(werkstueck *w)
+void Dialog_bearb_pkopf::set_data(werkstueck* w)
 {
     Wst = w;
     ui->lineEdit_l->setText(Wst->laenge_qstring());

@@ -1,9 +1,8 @@
 #include "dialog_kommentar_nc.h"
+
 #include "ui_dialog_kommentar_nc.h"
 
-Dialog_kommentar_nc::Dialog_kommentar_nc(QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::Dialog_kommentar_nc)
+Dialog_kommentar_nc::Dialog_kommentar_nc(QWidget* parent) : QDialog(parent), ui(new Ui::Dialog_kommentar_nc)
 {
     ui->setupUi(this);
     this->setWindowTitle("NC-Kommentar");
@@ -33,9 +32,7 @@ void Dialog_kommentar_nc::on_btn_ok_clicked()
     this->close();
 }
 
-
 void Dialog_kommentar_nc::on_btn_abbrechen_clicked()
 {
     this->close();
 }
-

@@ -1,41 +1,41 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QDirIterator>
 #include <QFileDialog>
 #include <QInputDialog>
-#include <QDirIterator>
 #include <QKeyEvent>
+#include <QMainWindow>
 
-#include "Klassen/einstellung.h"
-#include "Klassen/prgpfade.h"
-#include "Klassen/geo/vorschau.h"
-#include "Klassen/wst/werkstuecke.h"
-#include "Funktionen/funktionen_prgtext.h"
-#include "Dialoge/dialog_einstellung_pfade.h"
+#include "Dialoge/bearb/dialog_bearb_bohrung.h"
+#include "Dialoge/bearb/dialog_bearb_faufruf.h"
+#include "Dialoge/bearb/dialog_bearb_fbogen.h"
+#include "Dialoge/bearb/dialog_bearb_fgerade.h"
+#include "Dialoge/bearb/dialog_bearb_gezupu.h"
+#include "Dialoge/bearb/dialog_bearb_halt.h"
+#include "Dialoge/bearb/dialog_bearb_nut.h"
+#include "Dialoge/bearb/dialog_bearb_pkopf.h"
+#include "Dialoge/bearb/dialog_bearb_rta.h"
+#include "Dialoge/bearb/dialog_bearb_verschieben.h"
+#include "Dialoge/bearb/dialog_kommentar_nc.h"
+#include "Dialoge/bearb/dialog_schnellaenderung.h"
 #include "Dialoge/dialog_einstellung_dxf.h"
 #include "Dialoge/dialog_einstellung_dxf_klassen.h"
-#include "Dialoge/dialog_maschinen.h"
-#include "Klassen/wkz/maschinen.h"
-#include "Dialoge/bearb/dialog_bearb_pkopf.h"
-#include "Dialoge/bearb/dialog_bearb_bohrung.h"
-#include "Dialoge/bearb/dialog_bearb_rta.h"
-#include "Dialoge/bearb/dialog_bearb_nut.h"
-#include "Dialoge/bearb/dialog_bearb_faufruf.h"
-#include "Dialoge/bearb/dialog_bearb_fgerade.h"
-#include "Dialoge/bearb/dialog_bearb_fbogen.h"
-#include "Dialoge/bearb/dialog_bearb_verschieben.h"
-#include "Dialoge/bearb/dialog_schnellaenderung.h"
-#include "Funktionen/import/ewx.h"
-#include "Funktionen/import/dxf.h"
+#include "Dialoge/dialog_einstellung_pfade.h"
 #include "Dialoge/dialog_gcode.h"
-#include "Dialoge/bearb/dialog_kommentar_nc.h"
-#include "Dialoge/bearb/dialog_bearb_halt.h"
-#include "Dialoge/bearb/dialog_bearb_gezupu.h"
-
+#include "Dialoge/dialog_maschinen.h"
+#include "Funktionen/funktionen_prgtext.h"
+#include "Funktionen/import/dxf.h"
+#include "Funktionen/import/ewx.h"
+#include "Klassen/einstellung.h"
+#include "Klassen/geo/vorschau.h"
+#include "Klassen/prgpfade.h"
+#include "Klassen/wkz/maschinen.h"
+#include "Klassen/wst/werkstuecke.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 QT_END_NAMESPACE
@@ -44,18 +44,18 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-public:
-    MainWindow(QWidget *parent = nullptr);
+  public:
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
-private:
+  private:
     void setup();
     void schreibe_ini();
     void schreibe_maschinen();
     void maschinen_einlesen();
 
-    //Variablen:
-    Ui::MainWindow *ui;
+    // Variablen:
+    Ui::MainWindow* ui;
     QString Programmversion_simson;
     vorschau vorschaufenster;
     werkstuecke Wste;
@@ -67,20 +67,20 @@ private:
     QString KopierterEintrag;
     QString Pfad_letzte_geoeffnete_datei;
 
-    //Dialoge:
+    // Dialoge:
     Dialog_Einstellung_pfade dlg_Einstellung_pfade;
     Dialog_maschinen dlg_Einstellung_maschinen;
     Dialog_einstellung_dxf dlg_einstellung_dxf;
     Dialog_einstellung_dxf_klassen dlg_einstellung_dxf_klassen;
 
-private slots:
-    //Grafik und UI allgemein:
-    void resizeEvent(QResizeEvent *event);
-    void closeEvent(QCloseEvent *event);
+  private slots:
+    // Grafik und UI allgemein:
+    void resizeEvent(QResizeEvent* event);
+    void closeEvent(QCloseEvent* event);
     void set_vorschaufenster_default();
     void getMausPosXY(punkt3d p);
     void aktualisiere_fendtertitel();
-    //Datei:
+    // Datei:
     void on_actionNeu_triggered();
     void on_action_oeffnen_triggered();
     void on_btn_quick_import_clicked();
@@ -90,12 +90,12 @@ private slots:
     void on_actionUmbenennen_triggered();
     void on_actionSpeichern_triggered();
     void on_actionSpeichern_unter_triggered();
-    bool speichern(QString dateipfad, werkstueck *wst);
+    bool speichern(QString dateipfad, werkstueck* wst);
     QString validiere_dateipfad(QString pfad);
     void on_actionGCode_Export_triggered();
     //---
     void on_action_schliessen_triggered();
-    //Bearbeiten:
+    // Bearbeiten:
     void on_actionUndo_triggered();
     void on_actionRedo_triggered();
     void process_undo_redo(bool isUndo);
@@ -104,7 +104,7 @@ private slots:
     void on_actionEinfuegen_triggered();
     void on_actionAusschneiden_triggered();
     void on_actionEntfernen_triggered();
-    //CAM:
+    // CAM:
     void on_action_make_bohrung_triggered();
     void on_action_make_rta_triggered();
     void on_action_make_nut_triggered();
@@ -112,42 +112,41 @@ private slots:
     void on_actionNC_Kommentar_triggered();
     void on_actionNC_Halt_triggered();
     void on_actionGehe_zu_Punkt_triggered();
-    //Manipulation:
+    // Manipulation:
     int auswahl_erster();
     int auswahl_letzter();
     int auswahl_menge();
     void get_zeilennummer_bearb(uint nr, bool bearbeiten);
     void zeile_bearb_bearbeiten(int zeile_bearb);
     void on_actionVerschieben_triggered();
-    QString verschiebe_bearb_einen(QString bearb, double ax, double ay, double az,\
-                                   double wst_l_alt, double wst_l_neu,\
-                                   double wst_b_alt, double wst_b_ne  );
+    QString
+    verschiebe_bearb_einen(QString bearb, double ax, double ay, double az, double wst_l_alt, double wst_l_neu, double wst_b_alt, double wst_b_ne);
     void on_actionSchnellaenderung_triggered();
     void zeile_bearb_afb_umkehren(int zeile_bearb);
-    //Einstellungen:
+    // Einstellungen:
     void on_actionPfade_triggered();
     void on_actionCNC_Maschinen_triggered();
     void on_actionDXF_Grundeinstellung_triggered();
     void on_actionDXF_Klasseneinstellung_triggered();
-    //ListWidget Datei:
+    // ListWidget Datei:
     void on_listWidget_dateien_currentRowChanged(int currentRow);
     void aktualisiere_listwidget_dateien(int akt_index);
-    //ListWidget Bearbeitung
+    // ListWidget Bearbeitung
     void on_listWidget_bearb_currentRowChanged(int currentRow);
-    void on_listWidget_bearb_itemDoubleClicked(QListWidgetItem *item);
-    void update_listwidget_bearb(werkstueck *w);
+    void on_listWidget_bearb_itemDoubleClicked(QListWidgetItem* item);
+    void update_listwidget_bearb(werkstueck* w);
 
-protected:
-    bool eventFilter(QObject *obj, QEvent *event) override;
+  protected:
+    bool eventFilter(QObject* obj, QEvent* event) override;
 
-public slots:
-    //Grafik und UI allgemein:
+  public slots:
+    // Grafik und UI allgemein:
     void update_vorschau();
     void update_listwid_bearb();
-    //Datei:
-    //Bearbeiten:
+    // Datei:
+    // Bearbeiten:
     void zeile_aendern(int index_bearb, QString bearb, bool unredor_verwenden);
-    //CAM:
+    // CAM:
     void slot_make(QString bearb, bool unredor_verwenden);
     void slot_make_bo(bohrung bo);
     void slot_make_rta(rechtecktasche rt);
@@ -165,15 +164,15 @@ public slots:
     void slot_faufruf(fraeseraufruf fa);
     void slot_fgerade(fraesergerade fg);
     void slot_fbogen(fraeserbogen fb);
-    //Manipulation:
+    // Manipulation:
     void slot_verschieben(punkt3d p);
-    //Einstellungen:
+    // Einstellungen:
     void getEinstellung(einstellung e);
     void getEinstellungDxf(einstellung_dxf e);
     void getEinstellungDxfKlassen(einstellung_dxf_klassen e);
     void getMaschinen(maschinen m);
 
-signals:
+  signals:
     void sendEinstellungPfade(einstellung e);
     void sendEinstellungDxf(einstellung_dxf e);
     void sendEinstellungDxfKlassen(einstellung_dxf eg, einstellung_dxf_klassen ek);
