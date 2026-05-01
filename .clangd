@@ -1,0 +1,23 @@
+CompileFlags:
+  Add:
+    - "-std=c++17"
+    - "-x"
+    - "c++"
+    - "-I/workspaces/simson"
+    - "-I/workspaces/simson/build"
+    - "-I/usr/include/x86_64-linux-gnu/qt5"
+    - "-I/usr/include/qt5"
+    - "-I/usr/include/x86_64-linux-gnu/qt5/QtCore"
+    - "-I/usr/include/x86_64-linux-gnu/qt5/QtGui"
+    - "-I/usr/include/x86_64-linux-gnu/qt5/QtWidgets"
+    - "-I/usr/include/x86_64-linux-gnu/qt5/QtNetwork"
+    - "-DQT_CORE_LIB"
+    - "-DQT_GUI_LIB"
+    - "-DQT_WIDGETS_LIB"
+  CompilationDatabase: "./build/compile_commands.json"
+
+InlayHints:
+  Enabled: true
+
+Hover:
+  ShowAKA: true

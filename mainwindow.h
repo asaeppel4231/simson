@@ -67,16 +67,21 @@ class MainWindow : public QMainWindow
     QString KopierterEintrag;
     QString Pfad_letzte_geoeffnete_datei;
 
-    // Dialoge:
-    Dialog_Einstellung_pfade dlg_Einstellung_pfade;
-    Dialog_maschinen dlg_Einstellung_maschinen;
-    Dialog_einstellung_dxf dlg_einstellung_dxf;
-    Dialog_einstellung_dxf_klassen dlg_einstellung_dxf_klassen;
+    // Dialoge (lazy init):
+    Dialog_Einstellung_pfade* dlg_Einstellung_pfade = nullptr;
+    Dialog_maschinen* dlg_Einstellung_maschinen = nullptr;
+    Dialog_einstellung_dxf* dlg_einstellung_dxf = nullptr;
+    Dialog_einstellung_dxf_klassen* dlg_einstellung_dxf_klassen = nullptr;
+
+    Dialog_Einstellung_pfade* createDialogEinstellungPfade();
+    Dialog_maschinen* createDialogMaschinen();
+    Dialog_einstellung_dxf* createDialogEinstellungDxf();
+    Dialog_einstellung_dxf_klassen* createDialogEinstellungDxfKlassen();
 
   private slots:
     // Grafik und UI allgemein:
-    void resizeEvent(QResizeEvent* event);
-    void closeEvent(QCloseEvent* event);
+    void resizeEvent(QResizeEvent* event) override;
+    void closeEvent(QCloseEvent* event) override;
     void set_vorschaufenster_default();
     void getMausPosXY(punkt3d p);
     void aktualisiere_fendtertitel();

@@ -16,23 +16,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(&vorschaufenster, SIGNAL(sende_maus_pos(punkt3d)), this, SLOT(getMausPosXY(punkt3d)));
     connect(&vorschaufenster, SIGNAL(sende_zeilennummer(uint, bool)), this, SLOT(get_zeilennummer_bearb(uint, bool)));
 
-    connect(this, SIGNAL(sendEinstellungPfade(einstellung)), &dlg_Einstellung_pfade, SLOT(slot_einstellungen(einstellung)));
-    connect(&dlg_Einstellung_pfade, SIGNAL(send_einstellungen(einstellung)), this, SLOT(getEinstellung(einstellung)));
-
-    connect(this, SIGNAL(sendMaschinen(maschinen)), &dlg_Einstellung_maschinen, SLOT(slot_maschinen(maschinen)));
-    connect(&dlg_Einstellung_maschinen, SIGNAL(send_maschinen(maschinen)), this, SLOT(getMaschinen(maschinen)));
-
-    connect(this, SIGNAL(sendEinstellungDxf(einstellung_dxf)), &dlg_einstellung_dxf, SLOT(slot_einstellung(einstellung_dxf)));
-    connect(&dlg_einstellung_dxf, SIGNAL(send_einstellung(einstellung_dxf)), this, SLOT(getEinstellungDxf(einstellung_dxf)));
-    connect(this,
-            SIGNAL(sendEinstellungDxfKlassen(einstellung_dxf, einstellung_dxf_klassen)),
-            &dlg_einstellung_dxf_klassen,
-            SLOT(slot_einstellung(einstellung_dxf, einstellung_dxf_klassen)));
-    connect(&dlg_einstellung_dxf_klassen,
-            SIGNAL(send_einstellung(einstellung_dxf_klassen)),
-            this,
-            SLOT(getEinstellungDxfKlassen(einstellung_dxf_klassen)));
-
+    // Dialoge werden bei Bedarf erzeugt, um die Startzeit zu verbessern.
     // Installiere den Shortcut-Filter NUR für das spezifische ListWidget
     ui->listWidget_bearb->installEventFilter(this);
 
@@ -42,34 +26,68 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent), ui(new Ui::MainWi
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete dlg_Einstellung_pfade;
+    delete dlg_Einstellung_maschinen;
+    delete dlg_einstellung_dxf;
+    delete dlg_einstellung_dxf_klassen;
+}
+
+Dialog_Einstellung_pfade* MainWindow::createDialogEinstellungPfade()
+{
+    if(!dlg_Einstellung_pfade)
+    {
+        dlg_Einstellung_pfade = new Dialog_Einstellung_pfade(this);
+        connect(this, SIGNAL(sendEinstellungPfade(einstellung)), dlg_Einstellung_pfade, SLOT(slot_einstellungen(einstellung)));
+        connect(dlg_Einstellung_pfade, SIGNAL(send_einstellungen(einstellung)), this, SLOT(getEinstellung(einstellung)));
+    }
+    return dlg_Einstellung_pfade;
+}
+
+Dialog_maschinen* MainWindow::createDialogMaschinen()
+{
+    if(!dlg_Einstellung_maschinen)
+    {
+        dlg_Einstellung_maschinen = new Dialog_maschinen(this);
+        connect(this, SIGNAL(sendMaschinen(maschinen)), dlg_Einstellung_maschinen, SLOT(slot_maschinen(maschinen)));
+        connect(dlg_Einstellung_maschinen, SIGNAL(send_maschinen(maschinen)), this, SLOT(getMaschinen(maschinen)));
+    }
+    return dlg_Einstellung_maschinen;
+}
+
+Dialog_einstellung_dxf* MainWindow::createDialogEinstellungDxf()
+{
+    if(!dlg_einstellung_dxf)
+    {
+        dlg_einstellung_dxf = new Dialog_einstellung_dxf(this);
+        connect(this, SIGNAL(sendEinstellungDxf(einstellung_dxf)), dlg_einstellung_dxf, SLOT(slot_einstellung(einstellung_dxf)));
+        connect(dlg_einstellung_dxf, SIGNAL(send_einstellung(einstellung_dxf)), this, SLOT(getEinstellungDxf(einstellung_dxf)));
+    }
+    return dlg_einstellung_dxf;
+}
+
+Dialog_einstellung_dxf_klassen* MainWindow::createDialogEinstellungDxfKlassen()
+{
+    if(!dlg_einstellung_dxf_klassen)
+    {
+        dlg_einstellung_dxf_klassen = new Dialog_einstellung_dxf_klassen(this);
+        connect(this,
+                SIGNAL(sendEinstellungDxfKlassen(einstellung_dxf, einstellung_dxf_klassen)),
+                dlg_einstellung_dxf_klassen,
+                SLOT(slot_einstellung(einstellung_dxf, einstellung_dxf_klassen)));
+        connect(dlg_einstellung_dxf_klassen,
+                SIGNAL(send_einstellung(einstellung_dxf_klassen)),
+                this,
+                SLOT(getEinstellungDxfKlassen(einstellung_dxf_klassen)));
+    }
+    return dlg_einstellung_dxf_klassen;
 }
 
 void MainWindow::setup()
 {
     // Schauen ob alle Konfigurationsdateien vorhanden sind:
-    bool inifile_gefunden = false;         // user-Ordner
-    bool ini_dxf_gefunden = false;         // user-Ordner
-    bool ini_dxf_klassen_gefunden = false; // user-Ordner
-
-    QDir user_ordner(PrgPfade.path_user());
-    QStringList ordnerinhalt;
-    ordnerinhalt = user_ordner.entryList(QDir::Files);
-    for(QStringList::iterator it = ordnerinhalt.begin(); it != ordnerinhalt.end(); ++it)
-    {
-        QString name = *it;
-        if(name.contains(PrgPfade.name_inifile()))
-        {
-            inifile_gefunden = true;
-        }
-        if(name.contains(PrgPfade.name_ini_dxf()))
-        {
-            ini_dxf_gefunden = true;
-        }
-        if(name.contains(PrgPfade.name_ini_dxf_klassen()))
-        {
-            ini_dxf_klassen_gefunden = true;
-        }
-    }
+    bool inifile_gefunden = QFile::exists(PrgPfade.path_inifile());
+    bool ini_dxf_gefunden = QFile::exists(PrgPfade.path_ini_dxf());
+    bool ini_dxf_klassen_gefunden = QFile::exists(PrgPfade.path_ini_dxf_klassen());
 
     // Einstellungen aus Konfigurationsdateien übernehmen wo möglich:
     if(inifile_gefunden == false)
@@ -283,14 +301,11 @@ void MainWindow::schreibe_maschinen()
 void MainWindow::resizeEvent(QResizeEvent* event)
 {
     //---Vorschaufenster:
-    vorschaufenster.setParent(this);
-    vorschaufenster.move(5, 25);
-    vorschaufenster.setFixedWidth(this->width() - 270);
-    vorschaufenster.setFixedHeight(this->height() - 10);
+    vorschaufenster.setGeometry(5, 25, this->width() - 270, this->height() - 10);
     vorschaufenster.slot_aktualisieren();
 
     // rechter Bereich
-    int x = vorschaufenster.pos().rx() + vorschaufenster.width() + 5;
+    int x = vorschaufenster.geometry().right() + 5;
     ui->btn_quick_import->move(x, 5);
 
     int h = (this->height() - ui->listWidget_dateien->pos().y() - 60) / 2 - 25;
@@ -2445,10 +2460,12 @@ void MainWindow::getEinstellung(einstellung e)
 }
 void MainWindow::on_actionPfade_triggered()
 {
+    createDialogEinstellungPfade();
     emit sendEinstellungPfade(Einstellung);
 }
 void MainWindow::on_actionCNC_Maschinen_triggered()
 {
+    createDialogMaschinen();
     emit sendMaschinen(Maschinen);
 }
 void MainWindow::getMaschinen(maschinen m)
@@ -2464,6 +2481,7 @@ void MainWindow::getMaschinen(maschinen m)
 }
 void MainWindow::on_actionDXF_Grundeinstellung_triggered()
 {
+    createDialogEinstellungDxf();
     emit sendEinstellungDxf(Einstellung_dxf);
 }
 void MainWindow::getEinstellungDxf(einstellung_dxf e)
@@ -2487,6 +2505,7 @@ void MainWindow::getEinstellungDxf(einstellung_dxf e)
 }
 void MainWindow::on_actionDXF_Klasseneinstellung_triggered()
 {
+    createDialogEinstellungDxfKlassen();
     emit sendEinstellungDxfKlassen(Einstellung_dxf, Einstellung_dxf_klassen);
 }
 void MainWindow::getEinstellungDxfKlassen(einstellung_dxf_klassen e)
