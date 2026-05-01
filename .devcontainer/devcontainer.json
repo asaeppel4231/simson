@@ -1,0 +1,9 @@
+{
+  "name": "Qt + C++ Dev",
+  "image": "mcr.microsoft.com/devcontainers/cpp:ubuntu-22.04",
+  "features": {
+    "ghcr.io/devcontainers/features/cmake:1": {},
+    "ghcr.io/devcontainers/features/ninja:1": {}
+  },
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y qtbase5-dev qttools5-dev qt5-default libdxfrw-dev"
+}
